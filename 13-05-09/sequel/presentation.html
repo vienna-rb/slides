@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>When to use Sequel</title>
+    <!-- Styles -->
+    
+    <link rel="stylesheet" media="print" href="theme/css/print.css">
+    <link rel="stylesheet" media="screen, projection" href="theme/css/screen.css">
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script type="text/javascript" src="theme/js/slides.js"></script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>When to use Sequel</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Preface</h1></header>
+            
+            
+            <section><h2>About the guy standing here (Bndy)</h2>
+<ul>
+<li>Developer with a focus on backend programming</li>
+<li>Working for RadarServices doing funny things in a research project</li>
+<li>Likes Clean Code Principles, Refactoring, Optimization, Raccoons!</li>
+</ul>
+<h2>About Sequel</h2>
+<ul>
+<li>It's an ORM </li>
+<li>Maintained by Jeremy Evans</li>
+<li><a href="http://sequel.rubyforge.org/">http://sequel.rubyforge.org</a></li>
+<li>Current Version (08.05.2013) 3.47</li>
+<li>Monthly releases</li>
+<li>Heavily maintained</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Topics</h1></header>
+            
+            
+            <section><h2>Brief introduction to Sequel</h2>
+<ul>
+<li>Sequel Model</li>
+<li>Datasets</li>
+<li>Extending Datasets</li>
+<li>Associations</li>
+</ul>
+<h2>Benefits and Need-to-Knows</h2>
+<ul>
+<li>Joins</li>
+<li>Virtual Row Blocks</li>
+<li>Taking lazy evaluation serious</li>
+<li>Plugins</li>
+</ul>
+<h2>When to use it</h2></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Brief introduction to Sequel</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Sequel Model</h1></header>
+            
+            
+            <section><ul>
+<li>Loads all table data from database meta-information</li>
+<li>provides getter/setter for all columns in the table</li>
+<li>for all intends and purposes pretty much what ActiveRecord 
+  does in it's most basic form</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Sequel Model</h1></header>
+            
+            
+            <section><h2>Basic Implementation</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="no">DB</span><span class="o">.</span><span class="n">create_table</span> <span class="ss">:some_names</span> <span class="k">do</span>
+  <span class="n">primary_key</span> <span class="ss">:id</span>
+  <span class="nb">String</span> <span class="ss">:name</span>
+  <span class="nb">Integer</span> <span class="ss">:number</span>
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">SomeName</span> <span class="o">&lt;</span> <span class="ss">Sequel</span><span class="p">:</span><span class="ss">:Model</span>
+<span class="k">end</span>
+
+<span class="c1"># Fetch by primary key</span>
+<span class="n">first</span> <span class="o">=</span> <span class="no">SomeName</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+
+<span class="c1"># Preparing a regex search</span>
+<span class="n">like_fred</span> <span class="o">=</span> <span class="no">SomeName</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="sr">/fred/i</span><span class="p">)</span>
+
+<span class="c1"># Preparing an IN(x,y) Query</span>
+<span class="n">one_two_three</span> <span class="o">=</span> <span class="no">SomeName</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="ss">number</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Datasets</h1></header>
+            
+            
+            <section><h2>What they are</h2>
+<ul>
+<li>Datasets represent a rowset in the database</li>
+<li>They are not limited to tables</li>
+<li>They can be updated</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Datasets</h1></header>
+            
+            
+            <section><h2>Getting a Dataset</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="no">SomeName</span><span class="o">.</span><span class="n">dataset</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: &quot;SELECT * FROM \&quot;some_names\&quot;&quot;&gt;</span>
+<span class="no">SomeName</span><span class="o">.</span><span class="n">filter</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: &quot;SELECT * FROM \&quot;some_names\&quot;&quot;&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2>Some methods</h2>
+<ul>
+<li>[]</li>
+<li>select</li>
+<li>select_all</li>
+<li>filter</li>
+<li>order</li>
+<li>update</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Datasets</h1></header>
+            
+            
+            <section><h2>Usage</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="no">SomeName</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Fred&quot;</span><span class="p">,</span> <span class="ss">number</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+<span class="no">SomeName</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Carl&quot;</span><span class="p">,</span> <span class="ss">number</span><span class="p">:</span> <span class="mi">2</span><span class="p">)</span>
+<span class="no">SomeName</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Lenny&quot;</span><span class="p">,</span> <span class="ss">number</span><span class="p">:</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="no">SomeName</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="ss">number</span><span class="p">:</span> <span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">order</span><span class="p">(</span><span class="ss">:number</span><span class="o">.</span><span class="n">desc</span><span class="p">)</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: </span>
+<span class="c1">#   &quot;SELECT \&quot;id\&quot; FROM \&quot;some_names\&quot; </span>
+<span class="c1">#       WHERE (\&quot;number\&quot; IN (1, 2)) </span>
+<span class="c1">#       ORDER BY \&quot;number\&quot; DESC&quot;&gt;</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Datasets</h1></header>
+            
+            
+            <section><h2>You don't need a Model to get a dataset</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">some_name_dataset</span> <span class="o">=</span> <span class="no">DB</span><span class="o">[</span><span class="ss">:some_names</span><span class="o">]</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: &quot;SELECT * FROM \&quot;some_name\&quot;&quot;&gt;</span>
+
+<span class="n">some_name_dataset</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;Fred&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="c1"># {:id=&gt;1, :name=&gt;&quot;Fred&quot;, :number=&gt;1}</span>
+</pre></div>
+</td></tr></table>
+<h2>Noteworthy things about Datasets</h2>
+<ul>
+<li>Views make perfectly fine Datasets aswell</li>
+<li>Everything that can act like a rowset can be a Dataset</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Extending Datasets</h1></header>
+            
+            
+            <section><h2>Custom Filtering</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">SomeName</span> <span class="o">&lt;</span> <span class="ss">Sequel</span><span class="p">:</span><span class="ss">:Model</span>
+  <span class="n">dataset_module</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">filter_name</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+      <span class="n">filter</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="nb">name</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">SomeName</span><span class="o">.</span><span class="n">filter_name</span><span class="p">(</span><span class="s2">&quot;Fred&quot;</span><span class="p">)</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: </span>
+<span class="c1">#   &quot;SELECT * FROM \&quot;some_names\&quot; </span>
+<span class="c1">#       WHERE (\&quot;name\&quot; = &#39;Fred&#39;)&quot;&gt;</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Extending Datasets</h1></header>
+            
+            
+            <section><h2>Everything in a dataset can be chained endlessly</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">SomeName</span> <span class="o">&lt;</span> <span class="ss">Sequel</span><span class="p">:</span><span class="ss">:Model</span>
+  <span class="n">dataset_module</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">filter_name</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+      <span class="n">filter</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="nb">name</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">filter_number</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+      <span class="n">filter</span><span class="p">(</span><span class="ss">number</span><span class="p">:</span> <span class="n">numbers</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">default_order</span>
+      <span class="n">order</span><span class="p">(</span><span class="ss">:number</span><span class="o">.</span><span class="n">desc</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">SomeName</span><span class="o">.</span><span class="n">filter_name</span><span class="p">(</span><span class="s2">&quot;Fred&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">filter_number</span><span class="p">(</span><span class="o">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="o">]</span><span class="p">)</span><span class="o">.</span><span class="n">default_order</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: </span>
+<span class="c1">#   &quot;SELECT * FROM \&quot;some_names\&quot; </span>
+<span class="c1">#       WHERE ((\&quot;name\&quot; = &#39;Fred&#39;) AND (\&quot;number\&quot; IN (1, 2))) </span>
+<span class="c1">#       ORDER BY \&quot;number\&quot; DESC&quot;&gt;</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Associations</h1></header>
+            
+            
+            <section><h2>Creating a Model with foreign key</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="no">DB</span><span class="o">.</span><span class="n">create_table</span> <span class="ss">:some_others</span> <span class="k">do</span>
+  <span class="n">primary_key</span> <span class="ss">:id</span>  
+  <span class="nb">String</span> <span class="ss">:content</span>  
+  <span class="n">foreign_key</span> <span class="ss">:some_name_id</span><span class="p">,</span> <span class="ss">key</span><span class="p">:</span> <span class="o">[</span><span class="ss">:id</span><span class="o">]</span>  
+<span class="k">end</span>
+
+<span class="k">class</span> <span class="nc">SomeOther</span> <span class="o">&lt;</span> <span class="ss">Sequel</span><span class="p">:</span><span class="ss">:Model</span>
+  <span class="n">many_to_one</span> <span class="ss">:some_name</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Associations</h1></header>
+            
+            
+            <section><h2>Extending the referenced Model</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">class</span> <span class="nc">SomeName</span> <span class="o">&lt;</span> <span class="ss">Sequel</span><span class="p">:</span><span class="ss">:Model</span>
+  <span class="n">one_to_many</span> <span class="ss">:some_others</span>
+
+  <span class="n">dataset_module</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">filter_name</span><span class="p">(</span><span class="nb">name</span><span class="p">)</span>
+      <span class="n">filter</span><span class="p">(</span><span class="nb">name</span><span class="p">:</span> <span class="nb">name</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">filter_number</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span>
+      <span class="n">filter</span><span class="p">(</span><span class="ss">number</span><span class="p">:</span> <span class="n">numbers</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nf">default_order</span>
+      <span class="n">order</span><span class="p">(</span><span class="ss">:number</span><span class="o">.</span><span class="n">desc</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Associations</h1></header>
+            
+            
+            <section><h2>Fastest way to link objects</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">some_name</span> <span class="o">=</span> <span class="no">SomeName</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+
+<span class="n">some_name</span><span class="o">.</span><span class="n">add_some_other</span><span class="p">(</span><span class="ss">content</span><span class="p">:</span> <span class="s2">&quot;I am different!&quot;</span><span class="p">)</span>
+<span class="c1"># &lt;SomeOther @values={:id=&gt;1, :content=&gt;&quot;I am different!&quot;, </span>
+<span class="c1">#   :some_name_id=&gt;1}&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2>Getting associated datasets</h2>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">some_name</span> <span class="o">=</span> <span class="no">SomeName</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
+<span class="n">some_name</span><span class="o">.</span><span class="n">some_others_dataset</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: </span>
+<span class="c1"># &quot;SELECT * FROM \&quot;some_others\&quot; </span>
+<span class="c1">#   WHERE (\&quot;some_others\&quot;.\&quot;some_name_id\&quot; = 1)&quot;&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2>Noteworthy things about associations</h2>
+<ul>
+<li>Are not joined/loaded automagically by default</li>
+<li>Are not limited to be linked against and actual foreign key</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Benefits and Need-to-Knows</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Joins</h1></header>
+            
+            
+            <section><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="no">SomeName</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="ss">:some_others</span><span class="p">,</span> 
+    <span class="n">some_names__id</span><span class="p">:</span> <span class="ss">:some_others__some_name_id</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="ss">:some_names</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">select_append</span><span class="p">(</span><span class="ss">:some_others__content</span><span class="p">)</span><span class="o">.</span><span class="n">first</span>
+<span class="c1"># &lt;SomeName @values={:id=&gt;1, :name=&gt;&quot;Fred&quot;, :number=&gt;1, </span>
+<span class="c1">#       :content=&gt;&quot;I am different!&quot;}&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2>Benefits</h2>
+<ul>
+<li>Joins are really joins</li>
+<li>Joins may add fields to the resulting objects</li>
+<li>You may join together whatever you like - even subselects</li>
+</ul>
+<h2>Need to Knows</h2>
+<ul>
+<li>Joins need to be explicit</li>
+<li>Sequel doesn't mind returning you the same object multiple times
+    (with different joined data)</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Virtual Row Blocks</h1></header>
+            
+            
+            <section><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="no">SomeName</span><span class="o">.</span><span class="n">filter</span> <span class="k">do</span>
+  <span class="n">number</span> <span class="o">&gt;</span> <span class="mi">1</span>
+<span class="k">end</span><span class="o">.</span><span class="n">select</span> <span class="k">do</span>
+  <span class="no">Sequel</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="ss">:array_agg</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
+<span class="k">end</span><span class="o">.</span><span class="n">select_append</span> <span class="k">do</span>
+  <span class="no">Sequel</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="ss">:sum</span><span class="p">,</span> <span class="ss">:number</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: </span>
+<span class="c1"># &quot;SELECT array_agg(\&quot;name\&quot;), sum(\&quot;number\&quot;) </span>
+<span class="c1">#           FROM \&quot;some_names\&quot; WHERE (\&quot;number\&quot; &gt; 1)&quot;&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2>Benefits</h2>
+<ul>
+<li>Virtual Row Blocks allow you to use everything you ever want to put into
+  a fields list</li>
+<li>Virtual Row Blocks allow you to specify non-trivial conditions in filter/having
+    clauses</li>
+<li>Depending on the database they even allow specials like "over partition"</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Taking lazy evaluation serious</h1></header>
+            
+            
+            <section><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">relevant_ids</span> <span class="o">=</span> <span class="no">SomeOther</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="ss">content</span><span class="p">:</span> <span class="sr">/different/i</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
+<span class="n">array_agg</span> <span class="o">=</span> <span class="no">Sequel</span><span class="o">.</span><span class="n">function</span><span class="p">(</span><span class="ss">:array_agg</span><span class="p">,</span> <span class="ss">:number</span><span class="p">)</span>
+<span class="no">SomeName</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">relevant_ids</span><span class="p">)</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">array_agg</span><span class="p">)</span>
+<span class="c1"># &lt;Sequel::Postgres::Dataset: </span>
+<span class="c1"># &quot;SELECT array_agg(\&quot;number\&quot;) </span>
+<span class="c1">#   FROM \&quot;some_names\&quot; </span>
+<span class="c1">#   WHERE (\&quot;id\&quot; IN (</span>
+<span class="c1">#       SELECT \&quot;id\&quot; FROM \&quot;some_others\&quot; </span>
+<span class="c1">#       WHERE (\&quot;content\&quot; ~* &#39;different&#39;)))&quot;&gt;</span>
+</pre></div>
+</td></tr></table>
+<h2>Benefits</h2>
+<ul>
+<li>Every single part of a statement is lazy evaluated and can be reused</li>
+<li>Subselect (as above) are very easy</li>
+<li>Even complicated constructs like CTEs can be implemented
+  directly in ruby</li>
+</ul>
+<h2>Neet to Knows</h2>
+<ul>
+<li>It does <em>exactly</em> what you tell it to do</li>
+<li>Just because it is a valid SQL statement it doesn't need to be valid in your DB</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Plugins</h1></header>
+            
+            
+            <section><h2>From a postgres perspective</h2>
+<ul>
+<li>Support for <strong>all</strong> native database types</li>
+<li>Yes! Even weird types provided by contrib libs</li>
+<li>Almost all the nice little helper tools the others have</li>
+<li>Comfortable ways to define plugins yourself</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Partitioning Example</h1></header>
+            
+            
+            <section><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">add_timeline</span><span class="p">(</span><span class="n">timeline_table_name</span><span class="p">)</span>
+  <span class="n">timeline_model</span> <span class="o">=</span> <span class="no">Class</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="ss">Sequel</span><span class="p">:</span><span class="ss">:Model</span><span class="p">(</span><span class="n">timeline_table_name</span><span class="p">))</span>
+  <span class="n">timeline_model</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">at_timestamp</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">timestamp_partition</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">from_self</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">t1__row_number</span><span class="p">:</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">timestamp_partition</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+      <span class="nb">self</span><span class="o">.</span><span class="n">select_all</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">table_name</span><span class="p">)</span><span class="o">.</span><span class="n">select_append</span> <span class="k">do</span>
+        <span class="n">row_number</span><span class="p">(</span><span class="ss">:over</span><span class="p">,</span> 
+                <span class="ss">partition</span><span class="p">:</span> <span class="ss">:timeline_id</span><span class="p">,</span> 
+                <span class="ss">order</span><span class="p">:</span> <span class="ss">:timeline_timestamp</span><span class="o">.</span><span class="n">desc</span>
+            <span class="p">)</span> <span class="p">{}</span>
+      <span class="k">end</span><span class="o">.</span><span class="n">where</span> <span class="p">{</span><span class="n">timeline_timestamp</span> <span class="o">&lt;=</span> <span class="n">timestamp</span><span class="p">}</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+</td></tr></table></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>When to use it</h1></header>
+            
+            
+            <section><ul>
+<li>You want control over your database</li>
+<li>You want to unleash the benefits of using relational databases</li>
+<li>You want to use all available database types</li>
+<li>You want a really powerful tool that is well maintained</li>
+</ul>
+<h2>When to better leave it be</h2>
+<ul>
+<li>You <strong>don't</strong> want to bother with what your database does</li>
+<li>You are not comfortable with getting into SQL</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: presentation.mdown -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Thank you for your attention!</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="presentation.mdown">presentation.mdown</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">When to use Sequel</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Preface</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">Topics</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">Brief introduction to Sequel</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">Sequel Model</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">Sequel Model</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Datasets</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Datasets</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Datasets</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Datasets</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Extending Datasets</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Extending Datasets</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">Associations</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Associations</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Associations</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Benefits and Need-to-Knows</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Joins</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Virtual Row Blocks</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">Taking lazy evaluation serious</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">Plugins</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">Partitioning Example</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">When to use it</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">Thank you for your attention!</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>

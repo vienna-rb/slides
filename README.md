@@ -4,6 +4,12 @@ Slides
 Collection of held presentations
 
 
+Meetup 13-05-09
+======
+ * ```sequel```: **Andreas Kopecky**, When to use Sequel
+ * ```vienna.rb #3 slides (rails girls).pdf```: **Sarah Howorka**, On her projects and RailsGirls
+ * ```Ruby workflow.pdf```: **Clemens Helm**: The Ruby workflow or: Less workflow, more Ruby.
+
 Meetup 13-04-12
 ======
  * ```coderswoborders.pdf```: **Floor Drees**, Coders without boarders

@@ -1,0 +1,395 @@
+# When to use Sequel
+
+---
+
+# Preface
+
+## About the guy standing here (Bndy)
+
+- Developer with a focus on backend programming
+- Working for RadarServices doing funny things in a research project
+- Likes Clean Code Principles, Refactoring, Optimization, Raccoons!
+
+## About Sequel
+
+- It's an ORM 
+- Maintained by Jeremy Evans
+- [http://sequel.rubyforge.org](http://sequel.rubyforge.org/)
+- Current Version (08.05.2013) 3.47
+- Monthly releases
+- Heavily maintained
+
+---
+
+# Topics
+
+## Brief introduction to Sequel
+	
+- Sequel Model
+- Datasets
+- Extending Datasets
+- Associations
+
+## Benefits and Need-to-Knows
+
+- Joins
+- Virtual Row Blocks
+- Taking lazy evaluation serious
+- Plugins
+
+
+## When to use it
+
+---
+
+# Brief introduction to Sequel
+
+--- 
+
+# Sequel Model
+
+- Loads all table data from database meta-information
+- provides getter/setter for all columns in the table
+- for all intends and purposes pretty much what ActiveRecord 
+  does in it's most basic form
+
+---
+
+# Sequel Model
+
+## Basic Implementation
+
+	!ruby
+	DB.create_table :some_names do
+	  primary_key :id
+	  String :name
+	  Integer :number
+	end
+
+	class SomeName < Sequel::Model
+	end
+
+	# Fetch by primary key
+	first = SomeName[1]
+
+	# Preparing a regex search
+	like_fred = SomeName.filter(name: /fred/i)
+
+	# Preparing an IN(x,y) Query
+	one_two_three = SomeName.filter(number: [1,2,3])
+
+---
+
+# Datasets
+
+## What they are
+
+- Datasets represent a rowset in the database
+- They are not limited to tables
+- They can be updated
+
+---
+
+# Datasets
+
+## Getting a Dataset
+
+	!ruby
+	SomeName.dataset
+	# <Sequel::Postgres::Dataset: "SELECT * FROM \"some_names\"">
+	SomeName.filter
+	# <Sequel::Postgres::Dataset: "SELECT * FROM \"some_names\"">
+
+## Some methods
+
+- []
+- select
+- select_all
+- filter
+- order
+- update
+
+---
+
+# Datasets
+
+## Usage
+
+	!ruby
+	SomeName.create(name: "Fred", number: 1)
+	SomeName.create(name: "Carl", number: 2)
+	SomeName.create(name: "Lenny", number: 3)
+
+	SomeName.select(:id).filter(number: [1,2]).order(:number.desc)
+ 	# <Sequel::Postgres::Dataset: 
+ 	#	"SELECT \"id\" FROM \"some_names\" 
+ 	# 		WHERE (\"number\" IN (1, 2)) 
+ 	# 		ORDER BY \"number\" DESC">
+
+---
+
+# Datasets
+
+## You don't need a Model to get a dataset
+
+	!ruby
+	some_name_dataset = DB[:some_names]
+	# <Sequel::Postgres::Dataset: "SELECT * FROM \"some_name\"">
+
+	some_name_dataset.filter(name: "Fred").first
+	# {:id=>1, :name=>"Fred", :number=>1}
+
+## Noteworthy things about Datasets
+
+- Views make perfectly fine Datasets aswell
+- Everything that can act like a rowset can be a Dataset
+---
+
+# Extending Datasets
+
+## Custom Filtering
+
+	!ruby
+	class SomeName < Sequel::Model
+	  dataset_module do
+	    def filter_name(name)
+	      filter(name: name)
+	    end
+	  end
+	end
+
+	SomeName.filter_name("Fred")
+	# <Sequel::Postgres::Dataset: 
+	# 	"SELECT * FROM \"some_names\" 
+	#		WHERE (\"name\" = 'Fred')">
+
+---
+
+# Extending Datasets
+
+## Everything in a dataset can be chained endlessly
+
+	!ruby
+	class SomeName < Sequel::Model
+	  dataset_module do
+	    def filter_name(name)
+	      filter(name: name)
+	    end
+
+	    def filter_number(numbers)
+	      filter(number: numbers)
+	    end
+
+	    def default_order
+	      order(:number.desc)
+	    end
+	  end
+	end
+
+	SomeName.filter_name("Fred").filter_number([1,2]).default_order
+	# <Sequel::Postgres::Dataset: 
+	#	"SELECT * FROM \"some_names\" 
+	#		WHERE ((\"name\" = 'Fred') AND (\"number\" IN (1, 2))) 
+	#		ORDER BY \"number\" DESC">
+
+---
+
+# Associations
+
+## Creating a Model with foreign key
+
+	!ruby
+	DB.create_table :some_others do
+	  primary_key :id  
+	  String :content  
+	  foreign_key :some_name_id, key: [:id]  
+	end  	
+
+	class SomeOther < Sequel::Model
+	  many_to_one :some_name
+	end
+
+---
+
+# Associations
+
+## Extending the referenced Model
+
+	!ruby
+	class SomeName < Sequel::Model
+	  one_to_many :some_others
+
+	  dataset_module do
+	    def filter_name(name)
+	      filter(name: name)
+	    end
+
+	    def filter_number(numbers)
+	      filter(number: numbers)
+	    end
+
+	    def default_order
+	      order(:number.desc)
+	    end
+	  end
+	end
+
+---
+
+# Associations
+
+## Fastest way to link objects
+
+	!ruby
+	some_name = SomeName[1]
+
+	some_name.add_some_other(content: "I am different!")
+	# <SomeOther @values={:id=>1, :content=>"I am different!", 
+	# 	:some_name_id=>1}>
+
+## Getting associated datasets
+
+	!ruby
+	some_name = SomeName[1]
+	some_name.some_others_dataset
+	# <Sequel::Postgres::Dataset: 
+	# "SELECT * FROM \"some_others\" 
+	# 	WHERE (\"some_others\".\"some_name_id\" = 1)">
+
+
+
+## Noteworthy things about associations
+
+- Are not joined/loaded automagically by default
+- Are not limited to be linked against and actual foreign key
+
+---
+
+# Benefits and Need-to-Knows
+
+---
+
+# Joins
+
+	!ruby
+	SomeName.join(:some_others, 
+	 	some_names__id: :some_others__some_name_id)
+	 	.select_all(:some_names)
+	 	.select_append(:some_others__content).first
+	# <SomeName @values={:id=>1, :name=>"Fred", :number=>1, 
+	#		:content=>"I am different!"}>
+
+## Benefits
+
+- Joins are really joins
+- Joins may add fields to the resulting objects
+- You may join together whatever you like - even subselects
+
+## Need to Knows
+
+- Joins need to be explicit
+- Sequel doesn't mind returning you the same object multiple times
+	(with different joined data)
+
+---
+
+# Virtual Row Blocks
+
+	!ruby
+	SomeName.filter do
+	  number > 1
+	end.select do
+	  Sequel.function(:array_agg, :name)
+	end.select_append do
+	  Sequel.function(:sum, :number)
+	end
+	# <Sequel::Postgres::Dataset: 
+	# "SELECT array_agg(\"name\"), sum(\"number\") 
+	#			FROM \"some_names\" WHERE (\"number\" > 1)">
+
+## Benefits
+
+- Virtual Row Blocks allow you to use everything you ever want to put into
+  a fields list
+- Virtual Row Blocks allow you to specify non-trivial conditions in filter/having
+	clauses
+- Depending on the database they even allow specials like "over partition"
+
+---
+
+# Taking lazy evaluation serious
+
+	!ruby
+	relevant_ids = SomeOther.filter(content: /different/i).select(:id)
+	array_agg = Sequel.function(:array_agg, :number)
+	SomeName.filter(id: relevant_ids).select(array_agg)
+	# <Sequel::Postgres::Dataset: 
+	# "SELECT array_agg(\"number\") 
+	# 	FROM \"some_names\" 
+	# 	WHERE (\"id\" IN (
+	#		SELECT \"id\" FROM \"some_others\" 
+	# 		WHERE (\"content\" ~* 'different')))">
+
+## Benefits
+
+- Every single part of a statement is lazy evaluated and can be reused
+- Subselect (as above) are very easy
+- Even complicated constructs like CTEs can be implemented
+  directly in ruby
+
+## Neet to Knows
+
+- It does *exactly* what you tell it to do
+- Just because it is a valid SQL statement it doesn't need to be valid in your DB
+
+---
+# Plugins
+
+## From a postgres perspective
+
+- Support for **all** native database types
+- Yes! Even weird types provided by contrib libs
+- Almost all the nice little helper tools the others have
+- Comfortable ways to define plugins yourself
+
+---
+
+# Partitioning Example
+
+	!ruby
+	def self.add_timeline(timeline_table_name)
+	  timeline_model = Class.new(Sequel::Model(timeline_table_name))
+	  timeline_model.class_eval do
+	    def self.at_timestamp(timestamp)
+	      self.timestamp_partition(timestamp)
+	      	.from_self.where(t1__row_number: 1)
+	    end
+
+	    def self.timestamp_partition(timestamp)
+	      self.select_all(self.table_name).select_append do
+	        row_number(:over, 
+	        		partition: :timeline_id, 
+	        		order: :timeline_timestamp.desc
+	        	) {}
+	      end.where {timeline_timestamp <= timestamp}
+	    end
+	  end
+	end
+
+---
+
+# When to use it
+
+- You want control over your database
+- You want to unleash the benefits of using relational databases
+- You want to use all available database types
+- You want a really powerful tool that is well maintained
+
+## When to better leave it be
+
+- You **don't** want to bother with what your database does
+- You are not comfortable with getting into SQL
+
+---
+
+# Thank you for your attention!
