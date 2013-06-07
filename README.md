@@ -4,11 +4,17 @@ Slides
 Collection of held presentations
 
 
+Meetup 13-06-06
+======
+ * ```n Things you didn't know about PostgreSQL.pdf```: **Markus Prinz**, 10 things you didn't know about Postgres
+ * ```v```: **Martin Natano**, Implementing git-orm
+ * ```v```: **Gerald Bauer**: Using Markdown for building books, websites or presentations
+
 Meetup 13-05-09
 ======
  * ```sequel```: **Andreas Kopecky**, When to use Sequel
  * ```vienna.rb #3 slides (rails girls).pdf```: **Sarah Howorka**, On her projects and RailsGirls
- * ```Ruby workflow.pdf```: **Clemens Helm**: The Ruby workflow or: Less workflow, more Ruby.
+ * ```Ruby workflow.pdf```: **Clemens Helm**: The Ruby workflow or: Less workflow, more Ruby
 
 Meetup 13-04-12
 ======
@@ -19,6 +25,6 @@ Meetup 13-04-12
 
 Meetup 13-03-07
 ======
- * ```01-deployment-with-fpm.pdf```: **Andreas Tiefenthaler**, How to deploy Rails apps using Debian packages.
- * ```Securing Rails.pdf```: **Markus Prinz**, A short overview of Rails' software security troubles in January and February of 2013, and a few tips on how to defend yourself against attackers.
+ * ```01-deployment-with-fpm.pdf```: **Andreas Tiefenthaler**, How to deploy Rails apps using Debian packages
+ * ```Securing Rails.pdf```: **Markus Prinz**, A short overview of Rails' software security troubles in January and February of 2013, and a few tips on how to defend yourself against attackers
  * ```null_object.pdf```: **Michi Huber**, Tell don't ask, how to not repeat yourself with null objects
