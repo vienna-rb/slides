@@ -8,7 +8,7 @@ Meetup 13-06-06
 ======
  * ```n Things you didn't know about PostgreSQL.pdf```: **Markus Prinz**, 10 things you didn't know about Postgres
  * ```v```: **Martin Natano**, Implementing git-orm
- * ```v```: **Gerald Bauer**: [Using Markdown for websites, presentations, or books](13-06-06/markdown.md)
+ * ```markdown.md```: **Gerald Bauer**: [Using Markdown for websites, presentations, or books](13-06-06/markdown.md)
 
 Meetup 13-05-09
 ======
