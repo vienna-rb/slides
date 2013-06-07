@@ -8,7 +8,7 @@ Meetup 13-06-06
 ======
  * ```n Things you didn't know about PostgreSQL.pdf```: **Markus Prinz**, 10 things you didn't know about Postgres
  * ```v```: **Martin Natano**, Implementing git-orm
- * ```v```: **Gerald Bauer**: Using Markdown for building books, websites or presentations
+ * ```v```: **Gerald Bauer**: [Using Markdown for websites, presentations, or books](13-06-06/markdown.md)
 
 Meetup 13-05-09
 ======
@@ -19,7 +19,7 @@ Meetup 13-05-09
 Meetup 13-04-12
 ======
  * ```coderswoborders.pdf```: **Floor Drees**, Coders without boarders
- * ```beer_db_intro.md```:  **Gerald Bauer**, Using Open Beer & Brewery Data in Ruby
+ * ```beer_db_intro.md```:  **Gerald Bauer**, [Using Open Beer & Brewery Data in Ruby](13-04-12/beer_db_intro.md)
  * ```vienna.rb - open data.pdf```: **Tomáš Kramár**, Interpreting Open Data
  * ```Unit Testing.pdf```: **Anton Bangratz**, Bag o’ Tricks: Unit Testing
 
