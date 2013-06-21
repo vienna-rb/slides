@@ -7,7 +7,7 @@ Collection of held presentations
 Meetup 13-06-06
 ======
  * ```n Things you didn't know about PostgreSQL.pdf```: **Markus Prinz**, 10 things you didn't know about Postgres
- * ```v```: **Martin Natano**, Implementing git-orm
+ * ```vienna.rb_git-orm-slides```: **Martin Natano**, Implementing git-orm
  * ```markdown.md```: **Gerald Bauer**: [Using Markdown for websites, presentations, or books](13-06-06/markdown.md)
 
 Meetup 13-05-09
