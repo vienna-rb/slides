@@ -8,8 +8,8 @@ Meetup 13-06-06
 ======
  * ```intro```: **Andreas Tiefenthaler**, Introduction and the Gem of the month: brakeman
  * ```faster-tests```: **Anton - Tony - Bangratz** , Make your tests faster and use Ruby 2.0
- * ```continuous deployment.pdf``` - Clemens Helm, Make your workflow continuous, deploy continuous
- * ```Vagrant.pdf: **Markus Prinz**, An introduction to Vagrant
+ * ```continuous deployment.pdf```: **Clemens Helm**, Make your workflow continuous, deploy continuous
+ * ```Vagrant.pdf```: **Markus Prinz**, An introduction to Vagrant
 
 Meetup 13-06-06
 ======
