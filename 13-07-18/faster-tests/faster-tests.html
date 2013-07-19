@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<!--
+  Copyright 2010 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+  Original slides: Marcin Wichary (mwichary@google.com)
+  Modifications: Ernest Delgado (ernestd@google.com)
+                 Alex Russell (slightlyoff@chromium.org)
+
+  landslide modifications: Adam Zapletal (adamzap@gmail.com)
+                           Nicolas Perriault (nperriault@gmail.com)
+-->
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Faster Tests in Rails</title>
+    <!-- Styles -->
+    
+    <style type="text/css" media="print">
+      * {
+    margin: 0;
+    padding: 0;
+}
+
+@page {
+    size: landscape;
+}
+
+body {
+    font: 100% sans-serif;
+    padding: 0;
+    margin: 0;
+}
+
+div.slide {
+    min-width: 800px;
+    min-height: 600px;
+    overflow: hidden;
+    page-break-after: always;
+}
+
+div.slide div.inner {
+    width: 800px;
+    height: 600px;
+    margin: auto;
+    display: table-cell;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+header h1 {
+	padding-bottom: .5em;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h3 {
+    margin: 1em 0;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+p, li, pre {
+    margin: 1em 0;
+}
+
+li {
+    margin-left: 2em;
+}
+
+a {
+    color: #000000;
+}
+
+pre, code {
+    max-width: 800px;
+    background: #eee;
+    font-family: Monaco, monospace;
+    font-size: 90%;
+}
+
+pre {
+    padding: .2em .5em;
+    overflow: hidden;
+}
+
+code {
+    padding: 0 .2em;
+}
+
+.slide header:only-child h1 {
+  line-height: 120%;
+  text-align: center;
+  vertical-align: middle;
+  height: 600px;
+  width: 800px;
+  font-size: 36px;
+}
+
+#toc, #help, .slide aside, .slide footer, .slide .notes,
+.presenter_notes, #current_presenter_notes, #presenter_note {
+  display: none;
+}
+
+    </style>
+    <style type="text/css" media="screen, projection">
+      @import url(http://fonts.googleapis.com/css?family=Open+Sans);
+
+body {
+  font-family: 'Open Sans', Arial, sans-serif;
+  background: #778;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+div.presentation {
+  position: absolute;
+  width: 100%;
+  display: table-cell;
+  vertical-align: middle;
+  height: 100%;
+  background: inherit;
+}
+
+div.presentation > h1 {
+  display: none;
+}
+
+div.slides, body.expose div.slides.nocontext {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: absolute;
+  display: block;
+}
+
+div.slides.nocontext {
+  width: 900px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  left: auto;
+  top: auto;
+}
+
+div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  width: 900px;
+  height: 700px;
+  margin-top: -350px;
+  margin-left: -400px;
+  left: 50%;
+  top: 50%;
+/*
+  background: -webkit-gradient(linear, left bottom, left top, from(#eee), to(#fff));
+  background: -moz-linear-gradient(bottom, #eee, #fff);
+*/
+  background-color: white;
+  -webkit-transition: margin 0.25s ease-in-out;
+  -moz-transition: margin 0.25s ease-in-out;
+  -o-transition: margin 0.25s ease-in-out;
+  border-top-left-radius: 10px;
+  -moz-border-radius-topleft: 10px;
+  -webkit-border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  -moz-border-radius-topright: 10px;
+  -webkit-border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  -moz-border-radius-bottomright: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  -moz-border-radius-bottomleft: 10px;
+  -webkit-border-bottom-left-radius: 10px;
+}
+
+/* Expose */
+
+body.expose div.slides {
+  float: left;
+  position: relative;
+  overflow: auto;
+  margin-bottom: 10px;
+}
+
+body.expose div.slide {
+  display: block;
+  float: left;
+  position: relative;
+  left: auto !important;
+  top: auto !important;
+  margin: 10px !important;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  -moz-transform: scale(.33, .33);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.33, .33);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.33, .33);
+  -o-transform-origin: 0 0;
+  -webkit-transition: none;
+  -moz-transition: none;
+  -o-transition: none;
+  cursor: pointer;
+}
+
+body.expose div.slide:hover {
+  background: -webkit-gradient(linear, left bottom, left top, from(#bdd), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #bdd, #fff);
+}
+
+body.expose .slide-wrapper {
+  float: left;
+  position: relative;
+  margin: .5%;
+  width: 300px;
+  height: 233px;
+}
+
+body.expose .slide footer {
+}
+
+body.expose .slide .inner {
+}
+
+body.expose .slide.far-past,
+body.expose .slide.past,
+body.expose .slide.future,
+body.expose .slide.far-future {
+  margin-left: 0;
+}
+
+body.expose .slide.current {
+  background: -webkit-gradient(linear, left bottom, left top, from(#ddb), to(#fff));
+  background-color: #eee;
+  background: -moz-linear-gradient(bottom, #ddb, #fff);
+  border: 16px solid #fff;
+  -moz-transform: scale(.315, .315);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.315, .315);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.315, .315);
+  -o-transform-origin: 0 0;
+}
+
+/* Presenter Mode */
+
+body.presenter_view div.slide {
+  display: inline;
+  position: absolute;
+  overflow: hidden;
+  -moz-transform: scale(.5, .5);
+  -moz-transform-origin: 0 0;
+  -webkit-transform: scale(.5, .5);
+  -webkit-transform-origin: 0 0;
+  -o-transform: scale(.5, .5);
+  -o-transform-origin: 0 0;
+    margin-top: -300px;
+}
+
+body.presenter_view .slide.far-past {
+  display: block;
+  margin-left: -1500px;
+}
+
+body.presenter_view .slide.past {
+  display: block;
+  margin-left: -975px;
+}
+
+body.presenter_view .slide.current {
+  display: block;
+  margin-left: -475px;
+  border: 8px solid maroon;
+  z-index: 2;
+}
+
+body.presenter_view .slide.future {
+  display: block;
+  margin-left: 25px;
+  z-index: 1;
+}
+
+body.presenter_view .slide.far-future {
+  display: block;
+  margin-left: 525px;
+}
+
+body.presenter_view div#current_presenter_notes {
+    visibility: visible;
+    display: block;
+    position: absolute;
+    overflow: auto;
+    vertical-align: middle;
+    left: 50%;
+    top: 50%;
+    margin-left: -475px;
+    margin-top: 100px;
+    z-index: 2;
+    width: 950px;
+    border-style: solid;
+    height: 30%;
+    background-color: silver;
+}
+
+body.presenter_view div#current_presenter_notes section {
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: black;
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  display: block;
+  overflow: visible;
+    position: relative;
+    background-color: #fffeff;
+    height: 120px;
+    margin-right: 30px;
+    margin-top: 60px;
+    margin-left: 30px;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+body.presenter_view div#current_presenter_notes section p {
+    margin: 0;
+}
+
+body.presenter_view div#current_presenter_notes h1 {
+    font-size: 50%;
+    display: block;
+}
+
+div#current_presenter_notes {
+  display: none;
+}
+
+div.slide div.presenter_notes, div.slides div.presenter_notes {
+  display: none;
+}
+
+/* Slide styles */
+
+div.slide p {
+  font-size: 20px;
+}
+
+.slide.far-past {
+  display: block;
+  margin-left: -2400px;
+}
+
+.slide.past {
+  display: block;
+  margin-left: -1400px;
+}
+
+.slide.current {
+  display: block;
+  margin-left: -450px;
+}
+
+.slide.future {
+  display: block;
+  margin-left: 500px;
+}
+
+.slide.far-future {
+  display: block;
+  margin-left: 1500px;
+}
+
+body.three-d div.slides {
+  -webkit-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -moz-transform: translateX(50px) scale(0.8) rotateY(10deg);
+  -o-transform: translateX(50px) scale(0.8) rotateY(10deg);
+}
+
+
+/* Content */
+header:not(:only-child) {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: normal;
+  font-size: 50px;
+  letter-spacing: -.05em;
+  color: #515151;
+  /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+  position: absolute;
+  left: 30px;
+  top: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+header h1, header h2, header h3, header h4, header h5, header h6 {
+  display: inline;
+  font-size: 100%;
+  font-weight: normal;
+  padding: 0;
+  margin: 0;
+}
+
+header h1 {
+	border-bottom: 2px dotted #88e;
+}
+
+header h2:first-child {
+  margin-top: 0;
+}
+
+section, .slide header:only-child h1 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: #515151;
+  /* color: #3f3f3f; */
+  /* text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px; */
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 100px;
+  display: block;
+  overflow: hidden;
+}
+
+img { display: block; margin: auto; }
+
+section img.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+section img.align-right {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+section img.align-left {
+  display: block;
+  margin-right: auto;
+  margin-left: 0;
+}
+
+a {
+  color: inherit;
+  display: inline-block;
+  text-decoration: none;
+  line-height: 110%;
+  border-bottom: 2px solid #3f3f3f;
+}
+
+pre {
+  font-size: 16px;
+  font-family: Monaco, Courier, monospace;
+}
+
+li {
+  list-style: none;
+  padding: 10px 0;
+  font-size: 20px;
+}
+
+li:before {
+  content:'\2022';
+  display: block;
+  position: relative;
+  max-width: 0px;
+  max-height: 0px;
+  left: -20px;
+  top: -0px;
+  color: #515151;
+  font-size: 20px;
+}
+
+li li {
+  list-style: none;
+  padding: 5px 0;
+  font-size: 18px;
+}
+
+li li:before {
+  content: '-';
+  display: block;
+  position: relative;
+  max-width: 0px;
+  max-height: 0px;
+  left: -18px;
+  top: -0px;
+  color: #515151;
+  font-size: 18px;
+}
+
+.slide header:only-child h1 {
+  line-height: 180%;
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  height: 700px;
+  width: 900px;
+  font-size: 50px;
+  margin-top:100px;
+  margin-bottom:100px;
+}
+
+.sidebar {
+  clear: both;
+  background: -webkit-gradient(linear, top right, bottom right, from(#dde), to(#fff));
+  -webkit-transition: margin 0.25s ease-in-out;
+  background-color: #eee;
+  background: -moz-linear-gradient(right, #dde, #fff);
+  border-right: 5px solid #ccd;
+  z-index: 9999999;
+  height: 100%;
+  overflow: hidden;
+  top: 0;
+  position: absolute;
+  display: block;
+  margin: 0;
+  margin-left: -400px;
+  padding: 10px 16px;
+  overflow: auto;
+  -webkit-transition: margin 0.2s ease-in-out;
+  -moz-transition: margin 0.2s ease-in-out;
+  -o-transition: margin 0.2s ease-in-out;
+}
+
+.sidebar h2 {
+  text-shadow: rgba(0, 0, 0, 0.2) 0 2px 5px;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.sidebar table {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+}
+
+.sidebar table caption {
+  display: none;
+}
+
+.sidebar tr {
+  margin: 2px 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar th {
+  text-align: left;
+  font-weight: normal;
+  max-width: 300px;
+  overflow: hidden;
+}
+
+.sidebar tr.sub th {
+  text-indent: 20px;
+}
+
+.sidebar td {
+  text-align: right;
+  min-width: 20px;
+}
+
+.sidebar a {
+  display: block;
+  text-decoration: none;
+  border-bottom: none;
+  padding: 4px 0;
+}
+
+.sidebar tr.active {
+  background: #ff0;
+}
+
+aside {
+  display: none;
+}
+  aside.source {
+    position: absolute;
+    bottom: 6px;
+    left: 10px;
+    text-indent: 10px;
+  }
+  aside.page_number {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    text-indent: 10px;
+  }
+
+.notes {
+  display: none;
+  padding: 10px;
+  background: #ccc;
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+  div.slide p.notes {
+    font-size: 90%;
+}
+
+/* Pygments default theme */
+.hll { background-color: #ffffcc }
+.c { color: #408080; font-style: italic } /* Comment */
+.err { border: 1px solid #FF0000 } /* Error */
+.k { color: #008000; font-weight: bold } /* Keyword */
+.o { color: #666666 } /* Operator */
+.cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.cp { color: #BC7A00 } /* Comment.Preproc */
+.c1 { color: #408080; font-style: italic } /* Comment.Single */
+.cs { color: #408080; font-style: italic } /* Comment.Special */
+.gd { color: #A00000 } /* Generic.Deleted */
+.ge { font-style: italic } /* Generic.Emph */
+.gr { color: #FF0000 } /* Generic.Error */
+.gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.gi { color: #00A000 } /* Generic.Inserted */
+.go { color: #808080 } /* Generic.Output */
+.gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.gs { font-weight: bold } /* Generic.Strong */
+.gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.gt { color: #0040D0 } /* Generic.Traceback */
+.kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.kp { color: #008000 } /* Keyword.Pseudo */
+.kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.kt { color: #B00040 } /* Keyword.Type */
+.m { color: #666666 } /* Literal.Number */
+.s { color: #BA2121 } /* Literal.String */
+.na { color: #7D9029 } /* Name.Attribute */
+.nb { color: #008000 } /* Name.Builtin */
+.nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.no { color: #880000 } /* Name.Constant */
+.nd { color: #AA22FF } /* Name.Decorator */
+.ni { color: #999999; font-weight: bold } /* Name.Entity */
+.ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.nf { color: #0000FF } /* Name.Function */
+.nl { color: #A0A000 } /* Name.Label */
+.nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.nt { color: #008000; font-weight: bold } /* Name.Tag */
+.nv { color: #19177C } /* Name.Variable */
+.ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.w { color: #bbbbbb } /* Text.Whitespace */
+.mf { color: #666666 } /* Literal.Number.Float */
+.mh { color: #666666 } /* Literal.Number.Hex */
+.mi { color: #666666 } /* Literal.Number.Integer */
+.mo { color: #666666 } /* Literal.Number.Oct */
+.sb { color: #BA2121 } /* Literal.String.Backtick */
+.sc { color: #BA2121 } /* Literal.String.Char */
+.sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.s2 { color: #BA2121 } /* Literal.String.Double */
+.se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.sh { color: #BA2121 } /* Literal.String.Heredoc */
+.si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.sx { color: #008000 } /* Literal.String.Other */
+.sr { color: #BB6688 } /* Literal.String.Regex */
+.s1 { color: #BA2121 } /* Literal.String.Single */
+.ss { color: #19177C } /* Literal.String.Symbol */
+.bp { color: #008000 } /* Name.Builtin.Pseudo */
+.vc { color: #19177C } /* Name.Variable.Class */
+.vg { color: #19177C } /* Name.Variable.Global */
+.vi { color: #19177C } /* Name.Variable.Instance */
+.il { color: #666666 } /* Literal.Number.Integer.Long */
+
+#blank {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: black;
+  width: 100%;
+  height: 100%;
+  z-index: 64;
+  display: none;
+}
+
+    </style>
+    
+    
+    <!-- /Styles -->
+    <!-- Javascripts -->
+    
+    <script>
+      function main() {
+    // Since we don't have the fallback of attachEvent and
+    // other IE only stuff we won't try to run JS for IE.
+    // It will run though when using Google Chrome Frame
+    if (document.all) { return; }
+
+    var currentSlideNo;
+    var notesOn = false;
+    var expanded = false;
+    var hiddenContext = false;
+    var blanked = false;
+    var slides = document.getElementsByClassName('slide');
+    var touchStartX = 0;
+    var spaces = /\s+/, a1 = [''];
+    var tocOpened = false;
+    var helpOpened = false;
+    var overviewActive = false;
+    var modifierKeyDown = false;
+    var scale = 1;
+    var showingPresenterView = false;
+    var presenterViewWin = null;
+    var isPresenterView = false;
+
+    var str2array = function(s) {
+        if (typeof s == 'string' || s instanceof String) {
+            if (s.indexOf(' ') < 0) {
+                a1[0] = s;
+                return a1;
+            } else {
+                return s.split(spaces);
+            }
+        }
+        return s;
+    };
+
+    var trim = function(str) {
+        return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+    };
+
+    var addClass = function(node, classStr) {
+        classStr = str2array(classStr);
+        var cls = ' ' + node.className + ' ';
+        for (var i = 0, len = classStr.length, c; i < len; ++i) {
+            c = classStr[i];
+            if (c && cls.indexOf(' ' + c + ' ') < 0) {
+                cls += c + ' ';
+            }
+        }
+        node.className = trim(cls);
+    };
+
+    var removeClass = function(node, classStr) {
+        var cls;
+        if (!node) {
+            throw 'no node provided';
+        }
+        if (classStr !== undefined) {
+            classStr = str2array(classStr);
+            cls = ' ' + node.className + ' ';
+            for (var i = 0, len = classStr.length; i < len; ++i) {
+                cls = cls.replace(' ' + classStr[i] + ' ', ' ');
+            }
+            cls = trim(cls);
+        } else {
+            cls = '';
+        }
+        if (node.className != cls) {
+            node.className = cls;
+        }
+    };
+
+    var getSlideEl = function(slideNo) {
+        if (slideNo > 0) {
+            return slides[slideNo - 1];
+        } else {
+            return null;
+        }
+    };
+
+    var getSlideTitle = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var headers = el.getElementsByTagName('header');
+            if (headers.length > 0) {
+                return el.getElementsByTagName('header')[0].innerText;
+            }
+        }
+        return null;
+    };
+
+    var getSlidePresenterNote = function(slideNo) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            var n = el.getElementsByClassName('presenter_notes');
+            if (n.length > 0) {
+                return n[0];
+            }
+        }
+        return null;
+    };
+
+    var changeSlideElClass = function(slideNo, className) {
+        var el = getSlideEl(slideNo);
+        if (el) {
+            removeClass(el, 'far-past past current future far-future');
+            addClass(el, className);
+        }
+    };
+
+    var updateSlideClasses = function(updateOther) {
+        window.location.hash = (isPresenterView ? "presenter" : "slide") + currentSlideNo;
+
+        for (var i=1; i<currentSlideNo-1; i++) {
+            changeSlideElClass(i, 'far-past');
+        }
+
+        changeSlideElClass(currentSlideNo - 1, 'past');
+        changeSlideElClass(currentSlideNo, 'current');
+        changeSlideElClass(currentSlideNo + 1, 'future');
+
+        for (i=currentSlideNo+2; i<slides.length+1; i++) {
+            changeSlideElClass(i, 'far-future');
+        }
+
+        highlightCurrentTocLink();
+
+        processContext();
+
+        document.getElementsByTagName('title')[0].innerText = getSlideTitle(currentSlideNo);
+
+        updatePresenterNotes();
+
+        if (updateOther) { updateOtherPage(); }
+    };
+
+    var updatePresenterNotes = function() {
+        if (!isPresenterView) { return; }
+
+        var existingNote = document.getElementById('current_presenter_notes');
+        var currentNote = getSlidePresenterNote(currentSlideNo).cloneNode(true);
+        currentNote.setAttribute('id', 'presenter_note');
+
+        existingNote.replaceChild(currentNote, document.getElementById('presenter_note'));
+    };
+
+    var highlightCurrentTocLink = function() {
+        var toc = document.getElementById('toc');
+
+        if (toc) {
+            var tocRows = toc.getElementsByTagName('tr');
+            for (var i=0; i<tocRows.length; i++) {
+                removeClass(tocRows.item(i), 'active');
+            }
+
+            var currentTocRow = document.getElementById('toc-row-' + currentSlideNo);
+            if (currentTocRow) {
+                addClass(currentTocRow, 'active');
+            }
+        }
+    };
+
+    var updateOtherPage = function() {
+        if (!showingPresenterView) { return; }
+
+        var w = isPresenterView ? window.opener : presenterViewWin;
+        w.postMessage('slide#' + currentSlideNo, '*');
+    };
+
+    var nextSlide = function() {
+        if (currentSlideNo < slides.length) {
+            currentSlideNo++;
+        }
+        updateSlideClasses(true);
+    };
+
+    var prevSlide = function() {
+        if (currentSlideNo > 1) {
+            currentSlideNo--;
+        }
+        updateSlideClasses(true);
+    };
+
+    var showNotes = function() {
+        var notes = getSlideEl(currentSlideNo).getElementsByClassName('notes');
+        for (var i = 0, len = notes.length; i < len; i++) {
+            notes.item(i).style.display = (notesOn) ? 'none':'block';
+        }
+        notesOn = !notesOn;
+    };
+
+    var showSlideNumbers = function() {
+        var asides = document.getElementsByClassName('page_number');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showSlideSources = function() {
+        var asides = document.getElementsByClassName('source');
+        var hidden = asides[0].style.display != 'block';
+        for (var i = 0; i < asides.length; i++) {
+            asides.item(i).style.display = hidden ? 'block' : 'none';
+        }
+    };
+
+    var showToc = function() {
+        if (helpOpened) {
+                showHelp();
+        }
+        var toc = document.getElementById('toc');
+        if (toc) {
+            toc.style.marginLeft = tocOpened ? '-' + (toc.clientWidth + 20) + 'px' : '0px';
+            tocOpened = !tocOpened;
+        }
+        updateOverview();
+    };
+
+    var showHelp = function() {
+        if (tocOpened) {
+                showToc();
+        }
+
+        var help = document.getElementById('help');
+
+        if (help) {
+            help.style.marginLeft = helpOpened ? '-' + (help.clientWidth + 20) + 'px' : '0px';
+            helpOpened = !helpOpened;
+        }
+    };
+
+    var showPresenterView = function() {
+        if (isPresenterView) { return; }
+
+        if (showingPresenterView) {
+            presenterViewWin.close();
+            presenterViewWin = null;
+            showingPresenterView = false;
+        } else {
+            presenterViewWin = open(window.location.pathname + "#presenter" + currentSlideNo, 'presenter_notes',
+                                                                    'directories=no,location=no,toolbar=no,menubar=no,copyhistory=no');
+            showingPresenterView = true;
+        }
+    };
+
+    var switch3D = function() {
+        if (document.body.className.indexOf('three-d') == -1) {
+            document.getElementsByClassName('presentation')[0].style.webkitPerspective = '1000px';
+            document.body.className += ' three-d';
+        } else {
+            window.setTimeout('document.getElementsByClassName(\'presentation\')[0].style.webkitPerspective = \'0\';', 2000);
+            document.body.className = document.body.className.replace(/three-d/, '');
+        }
+    };
+
+    var toggleOverview = function() {
+        if (!overviewActive) {
+            addClass(document.body, 'expose');
+            overviewActive = true;
+            setScale(1);
+        } else {
+            removeClass(document.body, 'expose');
+            overviewActive = false;
+            if (expanded) {
+                setScale(scale);    // restore scale
+            }
+        }
+        processContext();
+        updateOverview();
+    };
+
+    var updateOverview = function() {
+        try {
+            var presentation = document.getElementsByClassName('presentation')[0];
+        } catch (e) {
+            return;
+        }
+
+        if (isPresenterView) {
+            var action = overviewActive ? removeClass : addClass;
+            action(document.body, 'presenter_view');
+        }
+
+        var toc = document.getElementById('toc');
+
+        if (!toc) {
+            return;
+        }
+
+        if (!tocOpened || !overviewActive) {
+            presentation.style.marginLeft = '0px';
+            presentation.style.width = '100%';
+        } else {
+            presentation.style.marginLeft = toc.clientWidth + 'px';
+            presentation.style.width = (presentation.clientWidth - toc.clientWidth) + 'px';
+        }
+    };
+
+    var computeScale = function() {
+        var cSlide = document.getElementsByClassName('current')[0];
+        var sx = cSlide.clientWidth / window.innerWidth;
+        var sy = cSlide.clientHeight / window.innerHeight;
+        return 1 / Math.max(sx, sy);
+    };
+
+    var setScale = function(scale) {
+        var presentation = document.getElementsByClassName('slides')[0];
+        var transform = 'scale(' + scale + ')';
+        presentation.style.MozTransform = transform;
+        presentation.style.WebkitTransform = transform;
+        presentation.style.OTransform = transform;
+        presentation.style.msTransform = transform;
+        presentation.style.transform = transform;
+    };
+
+    var expandSlides = function() {
+        if (overviewActive) {
+            return;
+        }
+        if (expanded) {
+            setScale(1);
+            expanded = false;
+        } else {
+            scale = computeScale();
+            setScale(scale);
+            expanded = true;
+        }
+    };
+
+    var showContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            removeClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var hideContext = function() {
+        try {
+            var presentation = document.getElementsByClassName('slides')[0];
+            addClass(presentation, 'nocontext');
+        } catch (e) {}
+    };
+
+    var processContext = function() {
+        if (hiddenContext) {
+            hideContext();
+        } else {
+            showContext();
+        }
+    };
+
+    var toggleContext = function() {
+        hiddenContext = !hiddenContext;
+        processContext();
+    };
+
+    var toggleBlank = function() {
+        blank_elem = document.getElementById('blank');
+
+        blank_elem.style.display = blanked ? 'none' : 'block';
+
+        blanked = !blanked;
+    };
+
+    var isModifierKey = function(keyCode) {
+        switch (keyCode) {
+            case 16: // shift
+            case 17: // ctrl
+            case 18: // alt
+            case 91: // command
+                return true;
+                break;
+            default:
+                return false;
+                break;
+        }
+    };
+
+    var checkModifierKeyUp = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = false;
+        }
+    };
+
+    var checkModifierKeyDown = function(event) {
+        if (isModifierKey(event.keyCode)) {
+            modifierKeyDown = true;
+        }
+    };
+
+    var handleBodyKeyDown = function(event) {
+        switch (event.keyCode) {
+            case 13: // Enter
+                if (overviewActive) {
+                    toggleOverview();
+                }
+                break;
+            case 27: // ESC
+                toggleOverview();
+                break;
+            case 37: // left arrow
+            case 33: // page up
+                prevSlide();
+                break;
+            case 39: // right arrow
+            case 32: // space
+            case 34: // page down
+                nextSlide();
+                break;
+            case 50: // 2
+                if (!modifierKeyDown) {
+                        showNotes();
+                }
+                break;
+            case 51: // 3
+                if (!modifierKeyDown && !overviewActive) {
+                    switch3D();
+                }
+                break;
+            case 190: // .
+            case 48: // 0
+            case 66: // b
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleBlank();
+                }
+                break;
+            case 67: // c
+                if (!modifierKeyDown && !overviewActive) {
+                    toggleContext();
+                }
+                break;
+            case 69: // e
+                if (!modifierKeyDown && !overviewActive) {
+                    expandSlides();
+                }
+                break;
+            case 72: // h
+                showHelp();
+                break;
+            case 78: // n
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideNumbers();
+                }
+                break;
+            case 80: // p
+                if (!modifierKeyDown && !overviewActive) {
+                    showPresenterView();
+                }
+                break;
+            case 83: // s
+                if (!modifierKeyDown && !overviewActive) {
+                    showSlideSources();
+                }
+                break;
+            case 84: // t
+                showToc();
+                break;
+        }
+    };
+
+    var handleWheel = function(event) {
+        if (tocOpened || helpOpened || overviewActive) {
+            return;
+        }
+
+        var delta = 0;
+
+        if (!event) {
+            event = window.event;
+        }
+
+        if (event.wheelDelta) {
+            delta = event.wheelDelta/120;
+            if (window.opera) delta = -delta;
+        } else if (event.detail) {
+            delta = -event.detail/3;
+        }
+
+        if (delta && delta <0) {
+            nextSlide();
+        } else if (delta) {
+            prevSlide();
+        }
+    };
+
+    var addSlideClickListeners = function() {
+        for (var i=0; i < slides.length; i++) {
+            var slide = slides.item(i);
+            slide.num = i + 1;
+            slide.addEventListener('click', function(e) {
+                if (overviewActive) {
+                    currentSlideNo = this.num;
+                    toggleOverview();
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }
+                return false;
+            }, true);
+        }
+    };
+
+    var addRemoteWindowControls = function() {
+        window.addEventListener("message", function(e) {
+            if (e.data.indexOf("slide#") != -1) {
+                    currentSlideNo = Number(e.data.replace('slide#', ''));
+                    updateSlideClasses(false);
+            }
+        }, false);
+    };
+
+    var addTouchListeners = function() {
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.touches[0].pageX;
+        }, false);
+        document.addEventListener('touchend', function(e) {
+            var pixelsMoved = touchStartX - e.changedTouches[0].pageX;
+            var SWIPE_SIZE = 150;
+            if (pixelsMoved > SWIPE_SIZE) {
+                nextSlide();
+            }
+            else if (pixelsMoved < -SWIPE_SIZE) {
+             prevSlide();
+            }
+        }, false);
+    };
+
+    var addTocLinksListeners = function() {
+        var toc = document.getElementById('toc');
+        if (toc) {
+            var tocLinks = toc.getElementsByTagName('a');
+            for (var i=0; i < tocLinks.length; i++) {
+                tocLinks.item(i).addEventListener('click', function(e) {
+                    currentSlideNo = Number(this.attributes['href'].value.replace('#slide', ''));
+                    updateSlideClasses(true);
+                    e.preventDefault();
+                }, true);
+            }
+        }
+    };
+
+    // initialize
+
+    (function() {
+        if (window.location.hash == "") {
+            currentSlideNo = 1;
+        } else if (window.location.hash.indexOf("#presenter") != -1) {
+            currentSlideNo = Number(window.location.hash.replace('#presenter', ''));
+            isPresenterView = true;
+            showingPresenterView = true;
+            presenterViewWin = window;
+            addClass(document.body, 'presenter_view');
+        } else {
+            currentSlideNo = Number(window.location.hash.replace('#slide', ''));
+        }
+
+        document.addEventListener('keyup', checkModifierKeyUp, false);
+        document.addEventListener('keydown', handleBodyKeyDown, false);
+        document.addEventListener('keydown', checkModifierKeyDown, false);
+        document.addEventListener('DOMMouseScroll', handleWheel, false);
+
+        window.onmousewheel = document.onmousewheel = handleWheel;
+        window.onresize = expandSlides;
+
+        for (var i = 0, el; el = slides[i]; i++) {
+            addClass(el, 'slide far-future');
+        }
+        updateSlideClasses(false);
+
+        // add support for finger events (filter it by property detection?)
+        addTouchListeners();
+
+        addTocLinksListeners();
+
+        addSlideClickListeners();
+
+        addRemoteWindowControls();
+    })();
+}
+
+    </script>
+    
+    
+    <!-- /Javascripts -->
+</head>
+<body>
+  <div id="blank"></div>
+  <div class="presentation">
+    <div id="current_presenter_notes">
+      <div id="presenter_note"></div>
+    </div>
+    <div class="slides">
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Faster Tests in Rails</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>A short introduction</p>
+<p>Comprehensive, not all-integrating</p>
+<p>partially blasphemic</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              1/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Anton Bangratz</h1></header>
+            
+            
+            <section><ul>
+<li>anton.bangratz@radarservices.com</li>
+<li>https://abangratz.github.io/</li>
+<li>https://github.com/abangratz</li>
+<li>https://twitter.com/tony_xpro</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              2/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>A Common Problem: Rails Tests/Specs are slow</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>GREAT! You have a lot of tests!</p>
+<p>you are not alone</p>
+<p>you might be testing too much</p>
+<p>you should check if you are testing the right things</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              3/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>1. Upgrade to Ruby 2.0</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul>
+<li>Faster Startup</li>
+<li>Better compatibility with Rails 4</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              4/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>After Upgrade:</h1></header>
+            
+            
+            <section><ul>
+<li>Startup is faster</li>
+<li>no need for Spork et al</li>
+<li>use of autotest, guard etc is definitely viable without the old tricks</li>
+</ul>
+<h2>Example:</h2>
+<p>Autotest, all tests:</p>
+<pre><code>Finished in 0.6798 seconds
+124 examples, 0 failures, 4 pending
+</code></pre>
+<p>Autotest, one file:</p>
+<pre><code>Finished in 0.22468 seconds
+8 examples, 0 failures
+</code></pre></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              5/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>2. Modularize Horizontally</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              6/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Different Techniques</h1></header>
+            
+            
+            <section><h2>Vertically</h2>
+<pre><code>|   Database   |     Slave     |
++--------------+---------------+
+| App Server 1 | App Server 2  |
++--------------+---------------+
+|       Load Balancer(s)       |
+</code></pre>
+<p>Great for production. Doesn't help in Tests. Good for scaling, so don't dismiss it.</p>
+<h2>Horizontally</h2>
+<pre><code>|        ORM         |
+|        API         | &lt; Use Workers for 'invisible' Tasks
+|        DAO         |
+|  Business Objects  | &lt;
+|     Presenters     | &lt; Via Adapters
+|  View  Generators  | &lt;
+</code></pre>
+<p>Good for testing. Doesn't matter in Production. Makes changes even easier.</p>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <p>SOC (and SOLID principles),</p>
+<p>Splitting of Full Stack Tests (Rendering vs Data Manipulation),</p>
+<p>Use full stack tests for critical paths in the API only,</p>
+<p>Use e.g. Sham::Rack for providing API endpoints for unit and stack tests</p>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              7/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Unit Tests</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              8/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Use Plain Old Ruby Objects (PORO)</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              9/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Why not use mock_model?</h1></header>
+            
+            
+            <section><p>Consider: you are including all of this:</p>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="c1">#...</span>
+<span class="lineno"> 2</span> <span class="n">stubs</span> <span class="o">=</span> <span class="n">stubs</span><span class="o">.</span><span class="n">reverse_merge</span><span class="p">(</span><span class="ss">:id</span> <span class="o">=&gt;</span> <span class="n">next_id</span><span class="p">)</span>
+<span class="lineno"> 3</span> <span class="n">stubs</span> <span class="o">=</span> <span class="n">stubs</span><span class="o">.</span><span class="n">reverse_merge</span><span class="p">(</span><span class="ss">:persisted?</span> <span class="o">=&gt;</span> <span class="o">!!</span><span class="n">stubs</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">,</span>
+<span class="lineno"> 4</span>                             <span class="ss">:destroyed?</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+<span class="lineno"> 5</span>                             <span class="ss">:marked_for_destruction?</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">,</span>
+<span class="lineno"> 6</span>                             <span class="ss">:valid?</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">,</span>
+<span class="lineno"> 7</span>                             <span class="ss">:blank?</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">)</span>
+<span class="lineno"> 8</span> 
+<span class="lineno"> 9</span> <span class="n">double</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">model_class</span><span class="o">.</span><span class="n">name</span><span class="si">}</span><span class="s2">_</span><span class="si">#{</span><span class="n">stubs</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">stubs</span><span class="p">)</span><span class="o">.</span><span class="n">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">m</span><span class="o">|</span>
+<span class="lineno">10</span>   <span class="n">m</span><span class="o">.</span><span class="n">singleton_class</span><span class="o">.</span><span class="n">class_eval</span> <span class="k">do</span>
+<span class="lineno">11</span>   <span class="kp">include</span> <span class="no">ActiveModelInstanceMethods</span>
+<span class="lineno">12</span>   <span class="kp">include</span> <span class="no">ActiveRecordInstanceMethods</span> <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">ActiveRecord</span><span class="p">)</span>
+<span class="lineno">13</span>   <span class="kp">include</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Conversion</span>
+<span class="lineno">14</span>   <span class="kp">include</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Validations</span>
+<span class="lineno">15</span> <span class="k">end</span>
+<span class="lineno">16</span> <span class="k">if</span> <span class="n">defined?</span><span class="p">(</span><span class="no">ActiveRecord</span><span class="p">)</span>
+<span class="lineno">17</span>   <span class="o">[</span><span class="ss">:save</span><span class="p">,</span> <span class="ss">:update_attributes</span><span class="p">,</span> <span class="ss">:update</span><span class="o">].</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">key</span><span class="o">|</span>
+<span class="lineno">18</span>     <span class="k">if</span> <span class="n">stubs</span><span class="o">[</span><span class="n">key</span><span class="o">]</span> <span class="o">==</span> <span class="kp">false</span>
+<span class="lineno">19</span>       <span class="n">m</span><span class="o">.</span><span class="n">errors</span><span class="o">.</span><span class="n">stub</span><span class="p">(</span><span class="ss">:empty?</span> <span class="o">=&gt;</span> <span class="kp">false</span><span class="p">)</span>
+<span class="lineno">20</span>     <span class="k">end</span>
+<span class="lineno">21</span>   <span class="k">end</span>
+<span class="lineno">22</span> <span class="k">end</span>
+<span class="lineno">23</span> <span class="n">m</span><span class="o">.</span><span class="n">__send__</span><span class="p">(</span><span class="ss">:__mock_proxy</span><span class="p">)</span><span class="o">.</span><span class="n">instance_eval</span><span class="p">(</span><span class="o">&lt;&lt;-</span><span class="no">CODE</span><span class="p">,</span> <span class="bp">__FILE__</span><span class="p">,</span> <span class="bp">__LINE__</span><span class="p">)</span>
+<span class="lineno">24</span> <span class="err">#...</span>
+<span class="lineno">25</span> <span class="c1">#...</span>
+</pre></div>
+
+<h2>It's not bad per se, but if you just use state of the models, don't use it</h2></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              10/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Solution 1: Use an ad-hoc class</h1></header>
+            
+            
+            <section><div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">MyTestDummyModel</span> <span class="o">&lt;</span> <span class="no">OpenStruct</span>
+<span class="lineno"> 2</span>   <span class="kp">extend</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Naming</span>
+<span class="lineno"> 3</span> <span class="k">end</span>
+<span class="lineno"> 4</span> 
+<span class="lineno"> 5</span> <span class="n">describe</span> <span class="no">TestController</span> <span class="k">do</span>
+<span class="lineno"> 6</span>   <span class="n">context</span> <span class="s2">&quot;GET /show&quot;</span> <span class="k">do</span>
+<span class="lineno"> 7</span>     <span class="n">let</span> <span class="p">(</span><span class="ss">:object</span><span class="p">)</span> <span class="p">{</span> <span class="no">MyTestDummyModel</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">index</span><span class="p">)</span> <span class="p">}</span>
+<span class="lineno"> 8</span>     <span class="n">it</span> <span class="s2">&quot;should work&quot;</span> <span class="k">do</span>
+<span class="lineno"> 9</span>       <span class="no">ObjectModel</span><span class="o">.</span><span class="n">stub!</span><span class="p">(</span><span class="ss">:find</span><span class="p">)</span><span class="o">.</span><span class="n">with</span><span class="p">(</span><span class="s2">&quot;5&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">and_return</span><span class="p">(</span><span class="n">object</span><span class="p">)</span>
+<span class="lineno">10</span>       <span class="n">get</span> <span class="ss">:index</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span>
+<span class="lineno">11</span>       <span class="n">response</span><span class="o">.</span><span class="n">should</span> <span class="n">be_success</span>
+<span class="lineno">12</span>     <span class="k">end</span>
+<span class="lineno">13</span>   <span class="k">end</span>
+<span class="lineno">14</span> <span class="k">end</span>
+</pre></div>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              11/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide has_code">
+          <div class="inner">
+            
+            <header><h1>Solution 2: Dependency Injection</h1></header>
+            
+            
+            <section><h2>A. Controller</h2>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="k">class</span> <span class="nc">TestController</span> <span class="o">&lt;</span> <span class="ss">ActionController</span><span class="p">:</span><span class="ss">:Base</span>
+<span class="lineno"> 2</span>   <span class="kp">attr_accessor</span> <span class="ss">:single_fetch_function</span>
+<span class="lineno"> 3</span>   <span class="k">def</span> <span class="nf">initialize</span>
+<span class="lineno"> 4</span>     <span class="k">super</span>
+<span class="lineno"> 5</span>     <span class="vi">@single_fetch_function</span> <span class="o">||=</span> <span class="no">ObjectModel</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="ss">:find</span><span class="p">)</span>
+<span class="lineno"> 6</span>   <span class="k">end</span>
+<span class="lineno"> 7</span> 
+<span class="lineno"> 8</span>   <span class="k">def</span> <span class="nf">show</span>
+<span class="lineno"> 9</span>     <span class="vi">@object</span> <span class="o">=</span><span class="nb">self</span><span class="o">.</span><span class="n">single_fetch_function</span><span class="o">.</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+<span class="lineno">10</span>   <span class="k">end</span>
+<span class="lineno">11</span> 
+<span class="lineno">12</span> <span class="k">end</span>
+</pre></div>
+
+<h2>B. Test</h2>
+<div class="highlight"><pre><span class="lineno"> 1</span> <span class="n">describe</span> <span class="no">TestController</span> <span class="k">do</span>
+<span class="lineno"> 2</span>   <span class="n">context</span> <span class="s2">&quot;GET /show&quot;</span> <span class="k">do</span>
+<span class="lineno"> 3</span>     <span class="n">it</span> <span class="s2">&quot;should work&quot;</span> <span class="k">do</span>
+<span class="lineno"> 4</span>       <span class="n">controller</span><span class="o">.</span><span class="n">single_fetch_function</span> <span class="o">=</span>
+<span class="lineno"> 5</span>         <span class="o">-&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">{</span> <span class="no">MyTestDummyModel</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> <span class="p">}</span>
+<span class="lineno"> 6</span>       <span class="n">get</span> <span class="ss">:index</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="mi">5</span>
+<span class="lineno"> 7</span>       <span class="n">response</span><span class="o">.</span><span class="n">should</span> <span class="n">be_success</span>
+<span class="lineno"> 8</span>     <span class="k">end</span>
+<span class="lineno"> 9</span>   <span class="k">end</span>
+<span class="lineno">10</span> <span class="k">end</span>
+</pre></div>
+
+<h3>You can use a mock here, but only if you need the interaction</h3></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              12/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>WARNING: Stop Testing Tested Code</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul>
+<li>Libraries, ORMs</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              13/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Except When You Changed Something</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul>
+<li>and then test only that something</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              14/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Golden Rule: Don't Test Anything You Didn't Implement</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul>
+<li>Which leads me to:</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              15/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Integration Tests</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              16/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Horizontal Split</h1></header>
+            
+            
+            <section><h2>Disadvantages:</h2>
+<ul>
+<li>Full stack tests have to be in sync</li>
+<li>Test more than 1 app</li>
+<li>&hellip; now, what to do?</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              17/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Treat Every Part As 3rd Party Code</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              18/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>How?</h1></header>
+            
+            
+            <section><ul>
+<li>Test at the interfaces (if both sides are tested rigorously, there's nothing to worry)</li>
+<li>Mock those interfaces (you know what to send and what to expect, don't use the real app)</li>
+<li>Don't trust yourself.</li>
+<li>I mean, REALLY, DON'T.</li>
+</ul>
+</section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+              <ul>
+<li>Sham::Rack</li>
+<li>&hellip;</li>
+</ul>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              19/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>How to Avoid Regressions</h1></header>
+            
+            
+            <section><ul>
+<li>Test First</li>
+<li>API Versioning</li>
+<li>Rigorously hunt down bugs and write tests for them</li>
+</ul></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              20/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>That's it, folks</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              21/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>Oh, BTW</h1></header>
+            
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              22/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+      <!-- slide source: faster_tests.md -->
+      <div class="slide-wrapper">
+        <div class="slide">
+          <div class="inner">
+            
+            <header><h1>We are hiring!</h1></header>
+            
+            
+            <section><ul>
+<li>(Ruby/Rails) Developers</li>
+<li>DevOps</li>
+</ul>
+<p>Talk to me after the talks ;)</p>
+<h2><img src="data:image/png;base64,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" /></h2></section>
+            
+          </div>
+          <div class="presenter_notes">
+            <header><h1>Presenter Notes</h1></header>
+            <section>
+            
+            </section>
+          </div>
+          <footer>
+            
+            <aside class="source">
+              Source: <a href="faster_tests.md">faster_tests.md</a>
+            </aside>
+            
+            <aside class="page_number">
+              23/23
+            </aside>
+          </footer>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  <div id="toc" class="sidebar hidden">
+    <h2>Table of Contents</h2>
+    <table>
+      <caption>Table of Contents</caption>
+      
+      <tr id="toc-row-1">
+        <th><a href="#slide1">Faster Tests in Rails</a></th>
+        <td><a href="#slide1">1</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-2">
+        <th><a href="#slide2">Anton Bangratz</a></th>
+        <td><a href="#slide2">2</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-3">
+        <th><a href="#slide3">A Common Problem: Rails Tests/Specs are slow</a></th>
+        <td><a href="#slide3">3</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-4">
+        <th><a href="#slide4">1. Upgrade to Ruby 2.0</a></th>
+        <td><a href="#slide4">4</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-5">
+        <th><a href="#slide5">After Upgrade:</a></th>
+        <td><a href="#slide5">5</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-6">
+        <th><a href="#slide6">2. Modularize Horizontally</a></th>
+        <td><a href="#slide6">6</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-7">
+        <th><a href="#slide7">Different Techniques</a></th>
+        <td><a href="#slide7">7</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-8">
+        <th><a href="#slide8">Unit Tests</a></th>
+        <td><a href="#slide8">8</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-9">
+        <th><a href="#slide9">Use Plain Old Ruby Objects (PORO)</a></th>
+        <td><a href="#slide9">9</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-10">
+        <th><a href="#slide10">Why not use mock_model?</a></th>
+        <td><a href="#slide10">10</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-11">
+        <th><a href="#slide11">Solution 1: Use an ad-hoc class</a></th>
+        <td><a href="#slide11">11</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-12">
+        <th><a href="#slide12">Solution 2: Dependency Injection</a></th>
+        <td><a href="#slide12">12</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-13">
+        <th><a href="#slide13">WARNING: Stop Testing Tested Code</a></th>
+        <td><a href="#slide13">13</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-14">
+        <th><a href="#slide14">Except When You Changed Something</a></th>
+        <td><a href="#slide14">14</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-15">
+        <th><a href="#slide15">Golden Rule: Don't Test Anything You Didn't Implement</a></th>
+        <td><a href="#slide15">15</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-16">
+        <th><a href="#slide16">Integration Tests</a></th>
+        <td><a href="#slide16">16</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-17">
+        <th><a href="#slide17">Horizontal Split</a></th>
+        <td><a href="#slide17">17</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-18">
+        <th><a href="#slide18">Treat Every Part As 3rd Party Code</a></th>
+        <td><a href="#slide18">18</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-19">
+        <th><a href="#slide19">How?</a></th>
+        <td><a href="#slide19">19</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-20">
+        <th><a href="#slide20">How to Avoid Regressions</a></th>
+        <td><a href="#slide20">20</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-21">
+        <th><a href="#slide21">That's it, folks</a></th>
+        <td><a href="#slide21">21</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-22">
+        <th><a href="#slide22">Oh, BTW</a></th>
+        <td><a href="#slide22">22</a></td>
+      </tr>
+      
+      
+      <tr id="toc-row-23">
+        <th><a href="#slide23">We are hiring!</a></th>
+        <td><a href="#slide23">23</a></td>
+      </tr>
+      
+      
+    </table>
+  </div>
+  
+  <div id="help" class="sidebar hidden">
+    <h2>Help</h2>
+    <table>
+      <caption>Help</caption>
+      <tr>
+        <th>Table of Contents</th>
+        <td>t</td>
+      </tr>
+      <tr>
+        <th>Exposé</th>
+        <td>ESC</td>
+      </tr>
+      <tr>
+        <th>Full screen slides</th>
+        <td>e</td>
+      </tr>
+      <tr>
+        <th>Presenter View</th>
+        <td>p</td>
+      </tr>
+      <tr>
+        <th>Source Files</th>
+        <td>s</td>
+      </tr>
+      <tr>
+        <th>Slide Numbers</th>
+        <td>n</td>
+      </tr>
+      <tr>
+        <th>Toggle screen blanking</th>
+        <td>b</td>
+      </tr>
+      <tr>
+        <th>Show/hide slide context</th>
+        <td>c</td>
+      </tr>
+      <tr>
+        <th>Notes</th>
+        <td>2</td>
+      </tr>
+      <tr>
+        <th>Help</th>
+        <td>h</td>
+      </tr>
+    </table>
+  </div>
+  <script>main()</script>
+</body>
+</html>

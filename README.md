@@ -6,6 +6,13 @@ Collection of held presentations
 
 Meetup 13-06-06
 ======
+ * ```intro```: **Andreas Tiefenthaler**, Introduction and the Gem of the month: brakeman
+ * ```faster-tests```: **Anton - Tony - Bangratz** , Make your tests faster and use Ruby 2.0
+ * ```continuous deployment.pdf``` - Clemens Helm, Make your workflow continuous, deploy continuous
+ * ```Vagrant.pdf: **Markus Prinz**, An introduction to Vagrant
+
+Meetup 13-06-06
+======
  * ```n Things you didn't know about PostgreSQL.pdf```: **Markus Prinz**, 10 things you didn't know about Postgres
  * ```vienna.rb_git-orm-slides```: **Martin Natano**, Implementing git-orm
  * ```markdown.md```: **Gerald Bauer**: [Using Markdown for websites, presentations, or books](13-06-06/markdown.md)
