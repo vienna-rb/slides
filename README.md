@@ -10,6 +10,7 @@ Meetup 13-06-18
  * ```faster-tests```: **Anton - Tony - Bangratz** , Make your tests faster and use Ruby 2.0
  * ```continuous deployment.pdf```: **Clemens Helm**, Make your workflow continuous, deploy continuous
  * ```Vagrant.pdf```: **Markus Prinz**, An introduction to Vagrant
+ * [Vagrant DRB Demo](https://github.com/pferdefleisch/vagrant-drb-demo): **Aaron - Pferdefleisch - Cruz**, Gems and config for my vagrant DRuby demo at vienna.rb July 18 2013
 
 Meetup 13-06-06
 ======
