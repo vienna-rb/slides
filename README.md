@@ -3,8 +3,11 @@ Slides
 
 Collection of held presentations
 
+Meetup 13-09-05
+======
+ * ```intro```: **Floor Drees**
 
-Meetup 13-06-18
+Meetup 13-07-18
 ======
  * ```intro```: **Andreas Tiefenthaler**, Introduction and the Gem of the month: brakeman
  * ```faster-tests```: **Anton - Tony - Bangratz** , Make your tests faster and use Ruby 2.0
