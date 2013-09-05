@@ -6,6 +6,9 @@ Collection of held presentations
 Meetup 13-09-05
 ======
  * ```intro```: **Floor Drees**
+ * ```sponsor talk```: **Klaus Kühnhammer**, NTRY
+ * [Using Cucumber in Scala](https://speakerdeck.com/sebnozzi/cucumber-on-scala): **Sebastian Nozzi**, Bringing 'Rubt coolness' to Scala
+ * ```sponsor talk```: **Peter Kofler**, Software Craftsmanship Journeyman Tour
 
 Meetup 13-07-18
 ======
