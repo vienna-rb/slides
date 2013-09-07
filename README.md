@@ -6,7 +6,7 @@ Collection of held presentations
 Meetup 13-09-05
 ======
  * ```intro.md```: **Floor Drees**  
- * **Klaus Kühnhammer**, NTRY  
+ * [Technical overview NTRY](https://ntry.at/ntry-to-vienna.rb.pdf)**Klaus Kühnhammer**, sponsor talk  
  * [Using Cucumber in Scala](https://speakerdeck.com/sebnozzi/cucumber-on-scala): **Sebastian Nozzi**, Bringing 'Rubt coolness' to Scala  
  * [Software Craftsmanship Journeyman Tour]( http://www.slideshare.net/pkofler/software-craftsmanship-journeyman-tour-2013-25980080): **Peter Kofler**, learning and teaching EVERYWHERE  
 
