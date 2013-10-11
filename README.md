@@ -3,6 +3,10 @@ Slides
 
 Collection of held presentations
 
+Meetup 13-10-11
+======
+ * ```intro_10-11.pdf```: **Floor Drees**  
+
 Meetup 13-09-05
 ======
  * ```intro.md```: **Floor Drees**  
