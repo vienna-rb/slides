@@ -5,7 +5,9 @@ Collection of held presentations
 
 Meetup 13-10-11
 ======
- * ```intro_10-11.pdf```: **Floor Drees**  
+ * ```intro_10-11.pdf```: **Floor Drees**
+ * ```sinatra_http_api.md```:  **Gerald Bauer**, [Building Web Services (HTTP APIs) with Ruby (and Sinatra)](13-10-11/sinatra_http_api.md)  
+
 
 Meetup 13-09-05
 ======

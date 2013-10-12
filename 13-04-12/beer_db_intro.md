@@ -57,8 +57,7 @@ weitra,   Weitra Bräu Bierwerkstatt, 1321, NÖ, city:weitra, »
     « 3970 Weitra // Sparkasseplatz 160, zwettler
 ```
 
-Source: [`europe/at/breweries.txt`](https://github.com/
-db/beer.db/blob/master/europe/at/breweries.txt)
+Source: [`at-austria/breweries.txt`](https://github.com/openbeer/at-austria)
 
 
 
@@ -80,7 +79,7 @@ Weitra Helles,  5.0 %,   11.8°,  by:weitra
 Hadmar,         5.2 %,   12.5°,  by:weitra, bio
 ```
 
-Source: [`europe/at/beers.txt`](https://github.com/geraldb/beer.db/blob/master/europe/at/beers.txt)
+Source: [`at-austria/beers.txt`](https://github.com/openbeer/at-austria)
 
 
 
@@ -372,9 +371,9 @@ And many more text patterns in use.
 
 ### Links 
 
-- [github.com/geraldb/beer.db](https://github.com/geraldb/beer.db)
-- [github.com/geraldb/football.db](https://github.com/geraldb/football.db)
-- [github.com/geraldb/world.db](https://github.com/geraldb/world.db)
+- [github.com/openbeer](https://github.com/openbeer)
+- [github.com/openfootball](https://github.com/openfootball)
+- [github.com/openmundi](https://github.com/openmundi)
 
 ### Questions? Comments?
 
