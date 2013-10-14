@@ -427,7 +427,7 @@ Tip: The `markdown` gem includes a little command line tool. Try `markdown -h` f
 Note - The markdown command line tool includes a server and little online markdown editor!
 Try `markdown serve` to start your own web service / HTTP (JSON) API.
 
-Source: [`github.com/geraldb/markdown`](https://github.com/geraldb/markdown)
+Source: [`github.com/rubylibs/markdown`](https://github.com/rubylibs/markdown)
 
 
 
