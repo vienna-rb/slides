@@ -7,12 +7,13 @@ Meetup 13-10-11
 ======
  * ```intro_10-11.pdf```: **Floor Drees**
  * ```sinatra_http_api.md```:  **Gerald Bauer**, [Building Web Services (HTTP APIs) with Ruby (and Sinatra)](13-10-11/sinatra_http_api.md)  
-
-
+ * [Erlang for Rubyists](https://speakerdeck.com/msch/erlang-for-rubyists): **Martin Schürrer**  
+ * [How to become a Better Developer ](https://ntry.at/ntry-to-vienna.rb.pdf): **Markus Prinz**  
+ 
 Meetup 13-09-05
 ======
  * ```intro.md```: **Floor Drees**  
- * [Technical overview NTRY](https://ntry.at/ntry-to-vienna.rb.pdf)**Klaus Kühnhammer**, sponsor talk  
+ * [Technical overview NTRY](https://ntry.at/ntry-to-vienna.rb.pdf): **Klaus Kühnhammer**, sponsor talk  
  * [Using Cucumber in Scala](https://speakerdeck.com/sebnozzi/cucumber-on-scala): **Sebastian Nozzi**, Bringing 'Rubt coolness' to Scala  
  * [Software Craftsmanship Journeyman Tour]( http://www.slideshare.net/pkofler/software-craftsmanship-journeyman-tour-2013-25980080): **Peter Kofler**, learning and teaching EVERYWHERE  
 
