@@ -7,7 +7,7 @@ Meetup 13-10-11
 ======
  * ```intro_10-11.pdf```: **Floor Drees**
  * ```sinatra_http_api.md```:  **Gerald Bauer**, [Building Web Services (HTTP APIs) with Ruby (and Sinatra)](13-10-11/sinatra_http_api.md)  
- * ```20131011_viennarb_chapterone.pdf```: **Kathrin Folkendt**, on getting started programming her first web app  
+ * ```20131011_viennarb_chapterone.pdf```: **Kathrin Folkendt**, on programming her first web app  
  * [Erlang for Rubyists](https://speakerdeck.com/msch/erlang-for-rubyists): **Martin Schürrer**  
  * [How to become a Better Developer ](https://ntry.at/ntry-to-vienna.rb.pdf): **Markus Prinz**  
  
