@@ -3,6 +3,15 @@ Slides
 
 Collection of held presentations
 
+Meetup 13-11-14
+======
+ * ```viennarb_intro_131114.pdf```: **Floor Drees**
+ * ```shirts.key```: **Alex Tacho**, presenting the final shirt designs
+ * [Rails AngularJS Bower Heroku](https://speakerdeck.com/stiebitzhofer/rails-angularjs-bower-heroku): **Hannes Stiebitzhofer**
+ * [Data visualization](https://speakerdeck.com/lfittl/data-dot-visualize): **Lukas Fittl**
+ * [Using Web Feeds to Build Planet Sites](http://slideshow-s9.github.io/webfeeds.html#1): **Gerald Bauer**
+
+
 Meetup 13-10-11
 ======
  * ```intro_10-11.pdf```: **Floor Drees**
