@@ -3,6 +3,14 @@ Slides
 
 Collection of held presentations
 
+Meetup 13-12-05
+======
+ * ```intro_20131205.pdf```: **Floor Drees**
+ * [Docker](http://an-ti.eu/talks.html): **Andreas Tiefenthaler**
+ * [OpenShift loves Sinatra and WebSockets](): **Michal Fojtik**
+ * [What if JavaScript and Ruby had a baby?](): **Thomas Schranz**
+ * [Packer](): **Ben Fritsch**
+
 Meetup 13-11-14
 ======
  * ```viennarb_intro_131114.pdf```: **Floor Drees**
