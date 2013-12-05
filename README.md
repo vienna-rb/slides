@@ -5,15 +5,15 @@ Collection of held presentations
 
 Meetup 13-12-05
 ======
- * ```intro_20131205.pdf```: **Floor Drees**
- * [Docker](http://an-ti.eu/talks.html): **Andreas Tiefenthaler**
- * [OpenShift loves Sinatra and WebSockets](): **Michal Fojtik**
- * [What if JavaScript and Ruby had a baby?](): **Thomas Schranz**
- * [Packer](): **Ben Fritsch**
+ * ```intro_20131205.pdf```: **Floor Drees**, intro
+ * [Docker](http://an-ti.eu/talks/docker.pdf): **Andreas Tiefenthaler**
+ * ```vienna.rb - dart.pdf```: **Thomas Schranz**, What if JavaScript and Ruby had a baby?
+ * [OpenShift loves Sinatra and WebSockets](http://mfojtik.im/): **Michal Fojtik**
+ * The Packer talk by **Ben Fritsch** was a [LIE](https://twitter.com/FloorDrees/status/408690898524856320)!
 
 Meetup 13-11-14
 ======
- * ```viennarb_intro_131114.pdf```: **Floor Drees**
+ * ```viennarb_intro_131114.pdf```: **Floor Drees**, intro
  * ```shirts.key```: **Alex Tacho**, presenting the final shirt designs
  * [Rails AngularJS Bower Heroku](https://speakerdeck.com/stiebitzhofer/rails-angularjs-bower-heroku): **Hannes Stiebitzhofer**
  * [Data visualization](https://speakerdeck.com/lfittl/data-dot-visualize): **Lukas Fittl**
@@ -22,7 +22,7 @@ Meetup 13-11-14
 
 Meetup 13-10-11
 ======
- * ```intro_10-11.pdf```: **Floor Drees**
+ * ```intro_10-11.pdf```: **Floor Drees**, intro
  * ```sinatra_http_api.md```:  **Gerald Bauer**, [Building Web Services (HTTP APIs) with Ruby (and Sinatra)](13-10-11/sinatra_http_api.md)  
  * ```20131011_viennarb_chapterone.pdf```: **Kathrin Folkendt**, on programming her first web app  
  * [Erlang for Rubyists](https://speakerdeck.com/msch/erlang-for-rubyists): **Martin Schürrer**  
@@ -30,7 +30,7 @@ Meetup 13-10-11
  
 Meetup 13-09-05
 ======
- * ```intro.md```: **Floor Drees**  
+ * ```intro.md```: **Floor Drees**  , intro
  * [Technical overview NTRY](https://ntry.at/ntry-to-vienna.rb.pdf): **Klaus Kühnhammer**, sponsor talk  
  * [Using Cucumber in Scala](https://speakerdeck.com/sebnozzi/cucumber-on-scala): **Sebastian Nozzi**, Bringing 'Rubt coolness' to Scala  
  * [Software Craftsmanship Journeyman Tour]( http://www.slideshare.net/pkofler/software-craftsmanship-journeyman-tour-2013-25980080): **Peter Kofler**, learning and teaching EVERYWHERE  
