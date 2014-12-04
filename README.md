@@ -3,6 +3,13 @@ Slides
 
 Collection of held presentations
 
+Meetup 14-12-04
+======
+* ```viennarb_19_intro```: **Floor Drees**, intro
+* ```FIWARE Info Day Vienna - CEED Tech.pptx```: **Imre Hild**, introducing the CEEDTech incubator program
+* [Ruby is dead](https://speakerdeck.com/pferdefleisch/ruby-is-dead) (a discussion): **Aaron Cruz**
+
+
 Meetup 13-12-05
 ======
  * ```intro_20131205.pdf```: **Floor Drees**, intro
@@ -27,7 +34,7 @@ Meetup 13-10-11
  * ```20131011_viennarb_chapterone.pdf```: **Kathrin Folkendt**, on programming her first web app  
  * [Erlang for Rubyists](https://speakerdeck.com/msch/erlang-for-rubyists): **Martin Schürrer**  
  * [How to become a Better Developer ](http://nuclearsquid.com/writings/how-to-become-a-better-developer/): **Markus Prinz**  
- 
+
 Meetup 13-09-05
 ======
  * ```intro.md```: **Floor Drees**  , intro
