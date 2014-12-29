@@ -9,6 +9,45 @@ Meetup 14-12-04
 * ```FIWARE Info Day Vienna - CEED Tech.pptx```: **Imre Hild**, introducing the CEEDTech incubator program
 * [Ruby is dead](https://speakerdeck.com/pferdefleisch/ruby-is-dead) (a discussion): **Aaron Cruz**
 
+Meetup 14-11-06
+======
+
+Meetup 14-10-02
+======
+
+Meetup 14-09-04
+======
+
+Meetup 14-06-05
+======
+
+Meetup 14-05-08
+======
+* [iPhone Apps with Rubymotion and the ProMotion and Teacup gems](https://speakerdeck.com/mediatainment/rubymotion-with-promotion-and-teacup): **Jan Jezek**
+
+Meetup 14-04-10
+======
+* refactoring Rails with your database in sync by Martin Schürrer (slides missing)
+* [Rails Girls Summer of Code & how to get involved](https://speakerdeck.com/alicetragedy/rails-girls-summer-of-code): **Laura Gaetano**
+* How To Become Rich and Handsome for the Poor and Ugly Application Developer by Aaron Cruz (slides missing)
+
+Meetup 14-03-13
+======
+* Using Open Football Data - Get Ready for the World Cup in Brazil w/ Ruby by Gerald Bauer (slides missing/link not working)
+* Sound synthesis with SuperCollider for Ruby by Peter Krenn (slides missing)
+* RailsGirls St. Pölten by Mirjam Zenz (slides missing)
+* Trait Composition Conflicts by Lars D (slides missing)
+
+Meetup 14-02-06
+======
+* [An Introduction to Rust](https://speakerdeck.com/cypher/an-introduction-to-rust): **Markus Prinz**
+* [Say goodbye to the asset pipeline](http://pferdefleisch.github.io/goodbye-to-asset-pipeline-talk): **Aaron Cruz**
+
+Meetup 14-01-09
+======
+* [Hobo - Less code, more fun with the RoR Meta Framework](http://at.mittenin.at/35): **Stefan Haslinger**
+* Cross-Domain Sessions in Rails by Lukas Fittl (slides missing)
+* Static website generation with webgen and kramdown by Thomas Leitner (slides missing)
 
 Meetup 13-12-05
 ======
