@@ -11,15 +11,18 @@ Meetup 14-12-04
 
 Meetup 14-11-06
 ======
+* ```viennarb18```: **Laura Gaetano**, intro
 
 Meetup 14-10-02
 ======
+* ```viennarb17```: **Laura Gaetano**, intro
 
 Meetup 14-09-04
 ======
 
 Meetup 14-06-05
 ======
+* ```viennarb15```: **Laura Gaetano**, intro
 
 Meetup 14-05-08
 ======
