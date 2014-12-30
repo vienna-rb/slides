@@ -12,13 +12,20 @@ Meetup 14-12-04
 Meetup 14-11-06
 ======
 * ```viennarb18```: **Laura Gaetano**, intro
+* [W2UI To The Rescue](http://informatom.com/presentations/hobo_w2ui/hobo_w2ui.html): **Stefan Haslinger**
+* Stop the user from changing your Rails Models! by Phillipp Röll (slides missing)
+* Building HTTP JSON APIs w/ Ruby by Gerald Bauer (slides missing)
+* README-Driven Development by Floor Drees (slides missing)
 
 Meetup 14-10-02
 ======
 * ```viennarb17```: **Laura Gaetano**, [intro](14-10-02/viennarb17.pdf)
+* Introduction to Lotus by Luca Guidi (remote talk, slides missing)
+* [In the beginning was text](https://speakerdeck.com/cypher/in-the-beginning-was-txt): **Markus Prinz**
 
 Meetup 14-09-04
 ======
+* ActiveAdmin by Sebastian Grässl (slides missing)
 
 Meetup 14-06-05
 ======
