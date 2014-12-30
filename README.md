@@ -15,7 +15,7 @@ Meetup 14-11-06
 
 Meetup 14-10-02
 ======
-* ```viennarb17```: **Laura Gaetano**, intro
+* ```viennarb17```: **Laura Gaetano**, [intro](14-10-02/viennarb17.pdf)
 
 Meetup 14-09-04
 ======
@@ -23,6 +23,9 @@ Meetup 14-09-04
 Meetup 14-06-05
 ======
 * ```viennarb15```: **Laura Gaetano**, intro
+* ```Project_Management```: **Adrian Smith**, Keeping Software Projects Under Control
+* ```PaginationDoneTheRightWay```: **Markus Winand**, SQL Pagination Done The Right Way
+* [Pair Programming](http://www.slideshare.net/pkofler/pair-programming-2014): **Peter Kofler**
 
 Meetup 14-05-08
 ======
@@ -36,7 +39,7 @@ Meetup 14-04-10
 
 Meetup 14-03-13
 ======
-* Using Open Football Data - Get Ready for the World Cup in Brazil w/ Ruby by Gerald Bauer (slides missing/link not working)
+* [Using Open Football Data - Get Ready for the World Cup in Brazil w/ Ruby](http://slideshow-s9.github.io/demos/open_data_world_cup.html): **Gerald Bauer**
 * Sound synthesis with SuperCollider for Ruby by Peter Krenn (slides missing)
 * RailsGirls St. Pölten by Mirjam Zenz (slides missing)
 * Trait Composition Conflicts by Lars D (slides missing)
