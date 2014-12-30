@@ -15,7 +15,7 @@ Meetup 14-11-06
 * [W2UI To The Rescue](http://informatom.com/presentations/hobo_w2ui/hobo_w2ui.html): **Stefan Haslinger**
 * Stop the user from changing your Rails Models! by Phillipp Röll (slides missing)
 * Building HTTP JSON APIs w/ Ruby by Gerald Bauer (slides missing)
-* README-Driven Development by Floor Drees (slides missing)
+* [README-Driven Development](https://speakerdeck.com/floord/kick-ass-readme-driven-development): **Floor Drees**
 
 Meetup 14-10-02
 ======
