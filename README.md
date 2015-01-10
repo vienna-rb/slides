@@ -3,6 +3,10 @@ Slides
 
 Collection of held presentations
 
+Meetup 15-01-08
+======
+* [Internationalization for RubyMotion projects](http://www.ramonhuidobro.com/slides/I18n-rubymotion-2015/I18n-rubymotion-2015.pdf): **Ramón Huidobro**
+
 Meetup 14-12-04
 ======
 * ```viennarb_19_intro```: **Floor Drees**, intro
