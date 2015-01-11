@@ -64,7 +64,7 @@ Meetup 14-02-06
 Meetup 14-01-09
 ======
 * [Hobo - Less code, more fun with the RoR Meta Framework](http://at.mittenin.at/35): **Stefan Haslinger**
-* Cross-Domain Sessions in Rails by Lukas Fittl (slides missing)
+* [Cross-Domain Sessions in Rails](https://speakerdeck.com/lfittl/cross-domain-sessions-with-ruby-on-rails) **Lukas Fittl**
 * Static website generation with webgen and kramdown by Thomas Leitner (slides missing)
 
 Meetup 13-12-05
