@@ -6,6 +6,7 @@ Collection of held presentations
 Meetup 15-01-08
 ======
 * [Internationalization for RubyMotion projects](http://www.ramonhuidobro.com/slides/I18n-rubymotion-2015/I18n-rubymotion-2015.pdf): **Ramón Huidobro**
+* [A minimalist heat monitor using Ruby](http://at.mittenin.at/39): **Stefan Haslinger**
 
 Meetup 14-12-04
 ======
