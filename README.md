@@ -3,8 +3,16 @@ Slides
 
 Collection of held presentations
 
+Meetup 15-02-12
+======
+* ```viennarb21```: **Laura Gaetano**, intro
+* [Jekyll, GitHub Pages, OctoPress 'n friends](http://slideshow-s9.github.io/demos/static.html): **Gerald Bauer**
+* ```Ghost In The Finite State Machine```: **Markus Prinz**, Ghost In The Finite State Machine
+* **Andi Fink**, What we can learn from Logstash
+
 Meetup 15-01-08
 ======
+* ```viennarb20```: **Laura Gaetano**, intro
 * [Internationalization for RubyMotion projects](http://www.ramonhuidobro.com/slides/I18n-rubymotion-2015/I18n-rubymotion-2015.pdf): **Ramón Huidobro**
 * [A minimalist heat monitor using Ruby](http://at.mittenin.at/39): **Stefan Haslinger**
 
