@@ -3,6 +3,21 @@ Slides
 
 Collection of held presentations
 
+Meetup 02-04-12
+======
+* ```viennarb23```: **Laura Gaetano**, intro
+* [Burning Down the House: Keeping your PostgreSQL Data safe](): **Markus Prinz**
+* [Sinatra <3 Rails]():**Sebastian Gräßl**
+* [Bundle open ... your mind]():**Aaron Cruz**
+
+Meetup 05-03-12
+======
+* ```viennarb22```: **Laura Gaetano**, intro
+* Sponsor talk: **Martin Schürrer** 
+* [Mr. 100 000 Volts gift-wraps Rubies and Opals](): **Stefan Haslinger**
+* [How teaching kids made me a better developer](): **Ramón Huidobro**
+* [GitHub as a Project Management Tool - talk + discussion topic](): **Laura Gaetano**
+
 Meetup 15-02-12
 ======
 * ```viennarb21```: **Laura Gaetano**, intro
