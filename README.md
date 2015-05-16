@@ -11,8 +11,8 @@ Meetup 15-04-02
 ======
 * ```viennarb23```: **Laura Gaetano**, intro
 * ```psql-backups```: **Markus Prinz**, Burning Down the House: Keeping your PostgreSQL Data safe
-* [Sinatra <3 Rails]():**Sebastian Gräßl**
-* [Bundle open ... your mind]():**Aaron Cruz**
+* [Sinatra <3 Rails](): **Sebastian Gräßl**
+* [Bundle open ... your mind](): **Aaron Cruz**
 
 Meetup 15-03-05
 ======
