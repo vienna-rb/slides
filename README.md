@@ -3,6 +3,10 @@ Slides
 
 Collection of held presentations
 
+Meetup 15-05-07
+======
+* ```viennarb24```: **Laura Gaetano**, intro
+
 Meetup 15-04-02
 ======
 * ```viennarb23```: **Laura Gaetano**, intro
