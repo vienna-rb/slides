@@ -6,6 +6,9 @@ Collection of held presentations
 Meetup 15-05-07
 ======
 * ```viennarb24```: **Laura Gaetano**, intro
+* ```portal-angewandte```: **Killian Stark & Philipp Mayer**, Portal Angewandte – Agile Software Development at the University of Applied Arts Vienna
+* [Almost Sinatra in Six-Lines of Ruby - A Breakdown](): **Gerald Bauer**
+* [Brave π](): **Stefan Haslinger**
 
 Meetup 15-04-02
 ======
@@ -18,7 +21,7 @@ Meetup 15-03-05
 ======
 * ```viennarb22```: **Laura Gaetano**, intro
 * Sponsor talk: **Martin Schürrer** 
-* [Mr. 100 000 Volts gift-wraps Rubies and Opals](): **Stefan Haslinger**
+* [Mr. 100 000 Volts gift-wraps Rubies and Opals](http://at.mittenin.at/40): **Stefan Haslinger**
 * [How teaching kids made me a better developer](http://ramonhuidobro.com/slides/teaching-kids-2015/teaching-kids-2015.pdf): **Ramón Huidobro**
 * [GitHub as a Project Management Tool - talk + discussion topic](): **Laura Gaetano**
 
