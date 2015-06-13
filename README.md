@@ -3,6 +3,13 @@ Slides
 
 Collection of held presentations
 
+Meetup 15-06-11
+======
+* ```viennarb25```: **Aaron Cruz**, intro  
+* Rails Docker Environment: **Christoph Witzany**  
+* [How Martial Arts Made Me a Better Programmer](https://speakerdeck.com/alicetragedy/how-martial-arts-made-me-a-better-programmer): **Laura Gaetano**  
+* [A Crash Intro To Deliberate Practice](https://speakerdeck.com/cypher/a-crash-intro-to-deliberate-practice): **Markus Prinz**
+
 Meetup 15-05-07
 ======
 * ```viennarb24```: **Laura Gaetano**, intro
