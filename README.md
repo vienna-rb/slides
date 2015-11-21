@@ -16,7 +16,7 @@ Meetup 15-10-15
 * **Floor Drees & Laura Gaetano**, intro  
 * [Dr. Jekyll and Mr. Hyde](http://slideshow-s9.github.io/demos/drjekyll.html#1): **Gerald Bauer**  
 * Don't Call Yourself a Programmer: **Markus Prinz**  
-* 'Why it’s good to break a couple of rules as a freelancer in order to preserve your sanity' + discussion round: **Andie Katschthaler**
+* [Why it’s good to break a couple of rules as a freelancer in order to preserve your sanity](http://www.slideshare.net/AndieKatschthaler/freelancers-do-these-donts-freelancer-meetup-vienna) + discussion round: **Andie Katschthaler**
 
 Meetup 15-09-03
 ======
