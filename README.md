@@ -3,6 +3,29 @@ Slides
 
 Collection of held presentations
 
+Meetup 15-11-20
+======
+* **Floor Drees & Laura Gaetano**, intro  
+* Scaling beyond 1 dyno: **Jakob Sommerhuber & Dominik Hurnaus (Platogo)**  
+* Meteor for Rails-Fans: **Jan Jezek**  
+* How to run a full web hosting stack in docker: **Phillipp**
+
+
+Meetup 15-10-15
+======
+* **Floor Drees & Laura Gaetano**, intro  
+* [Dr. Jekyll and Mr. Hyde](http://slideshow-s9.github.io/demos/drjekyll.html#1): **Gerald Bauer**  
+* [Don't Call Yourself a Programmer](https://speakerdeck.com/alicetragedy/how-martial-arts-made-me-a-better-programmer): **Markus Prinz**  
+* 'Why it’s good to break a couple of rules as a freelancer in order to preserve your sanity' + discussion round: **Andie Katschthaler**
+
+Meetup 15-09-03
+======
+* **Aaron Cruz**, intro  
+* The evolution of the Runtastic backend: **Simon Lasselsberger**  
+* 2 months of Rails Girls Summer of Code; what's cooking: **Pilar & Shelly**  
+* RubyIssue(s): **Sonja Heinen**
+* Discussion round on Rails 5
+
 Meetup 15-06-11
 ======
 * ```viennarb25```: **Aaron Cruz**, intro  
