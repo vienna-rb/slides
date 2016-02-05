@@ -3,6 +3,14 @@ Slides
 
 Collection of held presentations
 
+Meetup 16-02-04
+======
+* ```viennarb30```: **Laura Gaetano**, intro
+* Super fast image resizing with ruby: **Michael Emhofer**
+* [Domain Specific Languages — What are they good for, and how does Ruby help](https://speakerdeck.com/tawan/domain-specific-languages-and-ruby): **Tawan Sierek**  
+* Mongo on demand — NoSQL in PostgreSQL: **Max**
+
+
 Meetup 15-11-20
 ======
 * **Floor Drees & Laura Gaetano**, intro  
