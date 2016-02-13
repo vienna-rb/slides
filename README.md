@@ -6,9 +6,9 @@ Collection of held presentations
 Meetup 16-02-04
 ======
 * ```viennarb30```: **Laura Gaetano**, intro
-* Super fast image resizing with ruby: **Michael Emhofer**
+* ```super fast image resizing with ruby```: **Michael Emhofer**, Super fast image resizing with Ruby
 * [Domain Specific Languages — What are they good for, and how does Ruby help](https://speakerdeck.com/tawan/domain-specific-languages-and-ruby): **Tawan Sierek**  
-* Mongo on demand — NoSQL in PostgreSQL: **Max**
+* ```mongo_on_demand```: **Max**, Mongo on demand — NoSQL in PostgreSQL
 
 
 Meetup 15-11-20
