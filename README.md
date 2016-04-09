@@ -3,6 +3,14 @@ Slides
 
 Collection of held presentations
 
+Meetup 16-04-07
+======
+* **Laura Gaetano**, intro  
+* Ruby alternatives: **Aaron Cruz**  
+* An intro to distributed systems: **Dave Cottlehuber**  
+* [Cryptoparty or a talk about responsibility](https://lislis.de/talks/cryptoparty-responsibility): **Lisa**  
+
+
 Meetup 16-02-04
 ======
 * ```viennarb30```: **Laura Gaetano**, intro
