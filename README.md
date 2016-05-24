@@ -3,6 +3,13 @@ Slides
 
 Collection of held presentations
 
+Meetup 16-05-12
+======
+* **Laura Gaetano**, intro  
+* ```intro_to_ml```: **Markus Prinz**, Machine Learning Basics: Why Skynet won’t kill us all anytime soon  
+* [Machine Learning in Production: Working with real life data and deploying ML algorithms](http://www.slideshare.net/BenFreundorfer1/machine-learning-in-production-62047221): **Ben Freundorfer**  
+* Benoit Daloze — Optimizing Ruby with JRuby+Truffle  
+
 Meetup 16-04-07
 ======
 * **Laura Gaetano**, intro  
